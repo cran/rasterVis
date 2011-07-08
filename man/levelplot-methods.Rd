@@ -1,6 +1,7 @@
 \name{levelplot-methods}
 \docType{methods}
-\alias{levelplot-methods}
+
+\alias{levelplot}
 \alias{levelplot,Raster,missing-method}
 \title{Level plots of Raster objects.}
 \description{Level plots of Raster objects with \code{lattice} methods
@@ -48,6 +49,13 @@
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+s <- stack(r, r+500, r-500)
+levelplot(s, contour=TRUE)
+
+##Add a layer of sampling points
+##and change the theme
+pts <- sampleRandom(r, size=20, sp=TRUE)
+levelplot(r, par.settings=RdBuTheme) + layer(sp.points(pts, col='black'))
 
 \dontrun{
 ##Solar irradiation data from CMSAF
