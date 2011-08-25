@@ -1,0 +1,527 @@
+pkgname <- "rasterVis"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+library('rasterVis')
+
+assign(".oldSearch", search(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("bwplot-methods")
+### * bwplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: bwplot-methods
+### Title: Box and whisker plots of Raster objects.
+### Aliases: bwplot bwplot,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+s <- stack(r, r-500, r+500)
+bwplot(s)
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D bwplot(SISmm)
+##D bwplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("chooseRegion")
+### * chooseRegion
+
+flush(stderr()); flush(stdout())
+
+### Name: Interaction
+### Title: Interaction with trellis objects.
+### Aliases: identifyRaster chooseRegion identifyRaster
+###   identifyRaster,Raster-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r)
+##Do not close the last graphical window
+##Use the left button of the mouse to identify points and the right button to finish
+chosen_r <- identifyRaster(r, values=TRUE)
+chosen_r
+s <- stack(r, r-500, r+500)
+levelplot(s)
+chosen_s <- identifyRaster(s, values=TRUE)
+chosen_s
+
+## Not run: 
+##D ##The package mgcv is needed for the next example
+##D ##Use the left button of the mouse to build a border with points, and the right button to finish.
+##D ##The points enclosed by the border will be highlighted and returned as a SpatialPoints object.
+##D levelplot(s)
+##D reg <- chooseRegion()
+##D summary(reg)
+## End(Not run)
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D levelplot(SISmm)
+##D 
+##D ##Do not close the last graphical window
+##D ##Interaction
+##D ##Use the left button of the mouse to identify points and the right button to finish
+##D chosen <- identifyRaster(SISmm, layer=3, values=TRUE)
+##D chosen
+##D ##Use the left button of the mouse to build a border with points, and the right button to finish.
+##D ##The points enclosed by the border will be highlighted and returned as a SpatialPoints object.
+##D reg <- chooseRegion()
+##D summary(reg)
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("densityplot-methods")
+### * densityplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: densityplot-methods
+### Title: Density plots for Raster objects.
+### Aliases: densityplot densityplot,RasterLayer,missing-method
+###   densityplot,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+densityplot(r)
+s <- stack(r, r+500, r-500)
+densityplot(s)
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D densityplot(SISmm)
+##D densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("gplot-methods")
+### * gplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: gplot-methods
+### Title: Use ggplot to plot a Raster* object
+### Aliases: gplot gplot,Raster-method
+### Keywords: methods spatial
+
+### ** Examples
+ 
+r <- raster(system.file("external/test.grd", package="raster"))
+s <- stack(r, r*2)
+layerNames(s) <- c('meuse', 'meuse x 2')
+
+if (require(ggplot2)) {
+  theme_set(theme_bw())
+  gplot(s) + geom_tile(aes(fill = value)) + facet_wrap(~ variable) +
+            scale_fill_gradient(low = 'white', high = 'blue') + coord_equal()
+}
+
+
+
+
+cleanEx()
+nameEx("hexbinplot")
+### * hexbinplot
+
+flush(stderr()); flush(stdout())
+
+### Name: Formula methods
+### Title: Formula methods
+### Aliases: hexbinplot hexbinplot,formula,Raster-method
+###   xyplot,formula,Raster-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+layerNames(r)
+
+xyplot(test~y, data=r, alpha=0.5)
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D SISmm <- do.call(stack, listNC)
+##D SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D layerNames(SISmm) <- month.abb
+##D 
+##D ##Relation between the January & February versus July radiation for four
+##D ##differents longitude regions.
+##D xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
+##D ##Faster with hexbinplot
+##D hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("histogram-methods")
+### * histogram-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: histogram-methods
+### Title: Histogram of Raster objects.
+### Aliases: histogram histogram,RasterLayer,missing-method
+###   histogram,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+histogram(r)
+s <- stack(r, r+500, r-500)
+histogram(s)
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D histogram(SISmm)
+##D histogram(SISmm, FUN=as.yearqtr)
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("horizonplot-methods")
+### * horizonplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: horizonplot-methods
+### Title: Horizon plots of Raster objects.
+### Aliases: horizonplot horizonplot,RasterStackBrick-method
+###   horizonplot,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D horizonplot(SISmm)
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("hovmoller-methods")
+### * hovmoller-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: hovmoller-methods
+### Title: Hovmoller plots
+### Aliases: hovmoller hovmoller,RasterStackBrick-method
+### Keywords: methods spatial methods
+
+### ** Examples
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
+##D hovmoller(SISmm, dirXY=y, labels=FALSE, xlab='Latitude')##without labels
+##D hovmoller(SISmm, dirXY=y, add.contour=FALSE, xlab='Latitude')##without contours
+##D 
+##D hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("levelplot-methods")
+### * levelplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: levelplot-methods
+### Title: Level and contour plots of Raster objects.
+### Aliases: levelplot contourplot levelplot,Raster,missing-method
+###   contourplot,Raster,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r)
+s <- stack(r, r+500, r-500)
+levelplot(s, contour=TRUE)
+contourplot(s, labels=list(cex=0.6), cuts=12)
+
+##Add a layer of sampling points
+##and change the theme
+pts <- sampleRandom(r, size=20, sp=TRUE)
+levelplot(r, par.settings=BTCTheme) + layer(sp.points(pts, col='red'))
+contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D levelplot(SISmm)
+##D 
+##D levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
+## End(Not run)
+
+
+cleanEx()
+nameEx("plot3d")
+### * plot3d
+
+flush(stderr()); flush(stdout())
+
+### Name: plot3D
+### Title: Interactive 3D plot of a RasterLayer
+### Aliases: plot3D plot3D,RasterLayer-method
+### Keywords: methods spatial
+
+### ** Examples
+
+if (require(rgl)) {
+data(volcano)
+r <- raster(volcano)
+drape <- cut(r, 5)
+plot3D(r, drape=drape, zfac=4)
+decorate3d(xlab = "x", ylab = "y", zlab = "z", axes=TRUE)
+}
+
+
+
+cleanEx()
+nameEx("splom-methods")
+### * splom-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: splom-methods
+### Title: Scatter plot matrices of Raster objects.
+### Aliases: splom splom,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D splom(SISmm)
+## End(Not run)
+
+
+cleanEx()
+nameEx("xyLayer")
+### * xyLayer
+
+flush(stderr()); flush(stdout())
+
+### Name: xyLayer
+### Title: xyLayer
+### Aliases: xyLayer
+### Keywords: spatial
+
+### ** Examples
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+dirX <- xyLayer(r, x)
+dirXY <-xyLayer(r, sqrt(x^2 + y^2))
+levelplot(dirXY, margin=FALSE)
+
+
+
+cleanEx()
+nameEx("xyplot-methods")
+### * xyplot-methods
+
+flush(stderr()); flush(stdout())
+
+### Name: xyplot-methods
+### Title: xyplot for Raster objects
+### Aliases: xyplot xyplot,RasterStackBrick,missing-method
+### Keywords: methods spatial
+
+### ** Examples
+
+## Not run: 
+##D ##Solar irradiation data from CMSAF
+##D ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##D 
+##D old <- getwd()
+##D ##change to your folder...
+##D setwd('CMSAF')
+##D listFich <- dir(pattern='2008')
+##D listNC <- lapply(listFich, raster)
+##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D setwd(old)
+##D 
+##D idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+##D 
+##D SISmm <- setZ(stackSIS, idx)
+##D layerNames(SISmm) <- month.abb
+##D 
+##D xyplot(SISmm)
+## End(Not run)
+
+
+
+### * <FOOTER>
+###
+cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')
