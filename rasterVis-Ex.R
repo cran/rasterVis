@@ -384,8 +384,7 @@ contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -456,6 +455,35 @@ flush(stderr()); flush(stdout())
 ##D 
 ##D splom(SISmm)
 ## End(Not run)
+
+
+cleanEx()
+nameEx("vectorplot")
+### * vectorplot
+
+flush(stderr()); flush(stdout())
+
+### Name: vectorplot-methods
+### Title: Vector plots of Raster objects.
+### Aliases: vectorplot vectorplot,Raster-method
+### Keywords: methods spatial
+
+### ** Examples
+
+df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
+df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r1 <- rasterFromXYZ(df)
+df$z <- with(df, x*exp(-x^2-y^2))
+r2 <- rasterFromXYZ(df)
+df$z <- with(df, y*exp(-x^2-y^2))
+r3 <- rasterFromXYZ(df)
+
+projection(r1) <- projection(r2) <- projection(r3) <- CRS("+proj=longlat +datum=WGS84")
+
+vectorplot(r1, par.settings=RdBuTheme)
+vectorplot(r2, par.settings=RdBuTheme)
+vectorplot(r3, par.settings=RdBuTheme)
+
 
 
 cleanEx()

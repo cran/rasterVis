@@ -34,11 +34,11 @@
   \item{margin}{logical, if TRUE a marginal plot of the
     \code{FUN.margin} function to each coordinate will be displayed.}
   \item{FUN.margin}{A function to be applied to each coordinate.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{histogram}}.}
   \item{between, as.table, scales, xscale.components, yscale.components,
             par.settings, colorkey}{Graphical parameters of \code{lattice}. See \code{\link{xyplot}} for details.}
-  \item{\dots}{Additional arguments for \code{\link{histogram}}}
+  \item{\dots}{Additional arguments for \code{\link{levelplot}}}
 }
 
 \details{The result of the \code{levelplot} method is similar to the
@@ -77,8 +77,7 @@ old <- getwd()
 ##change to your folder...
 setwd('CMSAF')
 listFich <- dir(pattern='2008')
-listNC <- lapply(listFich, raster)
-stackSIS <- do.call(stack, listNC)
+stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
 
