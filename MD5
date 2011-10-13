@@ -1,7 +1,7 @@
-9c7351ef1709090ae57bf1ae182e525a *DESCRIPTION
+c8e407b88398c5197de2ba3bb5e1e414 *DESCRIPTION
 56b0f04810dc619f940dd7739f16756c *NAMESPACE
 1dc25e753d17a165e94c4c308f3e9fd3 *R/bwplot.R
-5bceafddf125c869efdb1479bbc84f83 *R/contourplot.R
+ef4259335c730f21a12ce7d5a3f4e437 *R/contourplot.R
 511dfa13c0a8059677fd1cf53b5752e2 *R/density.R
 3f4a87e79d92c3a68575a9daaf51de81 *R/gplot.R
 577a7767980b72ae857c5f242eeaa6ec *R/grid.R
@@ -11,11 +11,12 @@
 65e53c4dc32a71a55a80e963c7b36fbf *R/hovmoller.R
 c686fdafbd1017738e9a402b666b91d5 *R/interactRaster.R
 007c414ad2f2be751c87ba9650b5cf17 *R/latticeRaster.R
-e0688bd298e48df6eac4cb742ae4290b *R/levelplot.R
+1d567d2120c220f24c0721542f6513d3 *R/levelplot.R
 37a673e566f9e906656d4f2dd7c34087 *R/plot3d.R
 9dfbac121a4f2603059ea2ba274a2921 *R/splom.R
 bf1b5bc6bb0805df645cc7c437eaa335 *R/vectorplot.R
 696cc3f7fb3c373dc830e45b58cd510c *R/xyplot.R
+d68bcb01559c91b48c4203777ca1034f *R/zscale.R
 151b6ae3a92b068ed328f071c3df055d *man/bwplot-methods.Rd
 90a3169b5996bbfc807eaaf674fa7b57 *man/chooseRegion.Rd
 badbe5712e70a38619a9496f5d4e7c6e *man/densityplot-methods.Rd
@@ -24,7 +25,7 @@ badbe5712e70a38619a9496f5d4e7c6e *man/densityplot-methods.Rd
 c6348aaa88b098b245b8179daab82cf0 *man/histogram-methods.Rd
 20cb0361a505b1f256363dc273ade6e8 *man/horizonplot-methods.Rd
 d53f8fa5f42f03f1720ab078f9a40cb9 *man/hovmoller-methods.Rd
-18396540946e0c246d4e9269f30940ec *man/levelplot-methods.Rd
+14eb271af487e9b7767b5d0f18d40c77 *man/levelplot-methods.Rd
 664e5fefc64244e1c6bd5a070a6fdb75 *man/plot3d.Rd
 2f152eb841f8dbfec2c5750b793d7385 *man/rasterTheme.Rd
 8ffbb936372d28815d4992f66a5e073f *man/rasterVis-package.Rd
