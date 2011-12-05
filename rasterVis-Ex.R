@@ -13,6 +13,7 @@ flush(stderr()); flush(stdout())
 ### Name: bwplot-methods
 ### Title: Box and whisker plots of Raster objects.
 ### Aliases: bwplot bwplot,RasterStackBrick,missing-method
+###   bwplot,formula,Raster-method
 ### Keywords: methods spatial
 
 ### ** Examples
@@ -30,8 +31,7 @@ bwplot(s)
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -42,6 +42,28 @@ bwplot(s)
 ##D 
 ##D bwplot(SISmm)
 ##D bwplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+## End(Not run)
+## Not run: 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
+##D pop <- raster('875430rgb-167772161.0.FLOAT.TIFF')
+##D pop[pop==99999] <- NA
+##D levelplot(pop, zscaleLog=10, par.settings=BTCTheme,
+##D           panel=panel.levelplot.raster, interpolate=TRUE)
+##D 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=20
+##D landClass <- raster('241243rgb-167772161.0.TIFF')
+##D landClass[landClass==254] <- NA
+##D 
+##D 
+##D s <- stack(pop, landClass)
+##D layerNames(s) <- c('pop', 'landClass')
+##D 
+##D bwplot(asinh(pop) ~ landClass|cut(y, 3), data=s,
+##D        layout=c(3, 1), violin=FALSE)
+##D 
+##D bwplot(asinh(pop) ~ cut(y, 5)|landClass, data=s,
+##D        scales=list(x=list(rot=45)), layout=c(4, 5),
+##D        strip=strip.custom(strip.levels=TRUE))
 ## End(Not run)
 
 
@@ -89,8 +111,7 @@ chosen_s
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -124,6 +145,7 @@ flush(stderr()); flush(stdout())
 ### Title: Density plots for Raster objects.
 ### Aliases: densityplot densityplot,RasterLayer,missing-method
 ###   densityplot,RasterStackBrick,missing-method
+###   densityplot,formula,Raster-method
 ### Keywords: methods spatial
 
 ### ** Examples
@@ -142,8 +164,7 @@ densityplot(s)
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -154,6 +175,25 @@ densityplot(s)
 ##D 
 ##D densityplot(SISmm)
 ##D densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+## End(Not run)
+## Not run: 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
+##D pop <- raster('875430rgb-167772161.0.FLOAT.TIFF')
+##D pop[pop==99999] <- NA
+##D levelplot(pop, zscaleLog=10, par.settings=BTCTheme,
+##D           panel=panel.levelplot.raster, interpolate=TRUE)
+##D 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=20
+##D landClass <- raster('241243rgb-167772161.0.TIFF')
+##D landClass[landClass==254] <- NA
+##D 
+##D 
+##D s <- stack(pop, landClass)
+##D layerNames(s) <- c('pop', 'landClass')
+##D 
+##D densityplot(~asinh(pop)|landClass, data=s,
+##D             scales=list(relation='free'),
+##D             strip=strip.custom(strip.levels=TRUE))
 ## End(Not run)
 
 
@@ -212,9 +252,7 @@ xyplot(test~y, data=r, alpha=0.5)
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D SISmm <- do.call(stack, listNC)
-##D SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
+##D stackSIS <- stack(listFich)SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
 ##D layerNames(SISmm) <- month.abb
@@ -238,6 +276,7 @@ flush(stderr()); flush(stdout())
 ### Title: Histogram of Raster objects.
 ### Aliases: histogram histogram,RasterLayer,missing-method
 ###   histogram,RasterStackBrick,missing-method
+###   histogram,formula,Raster-method
 ### Keywords: methods spatial
 
 ### ** Examples
@@ -256,8 +295,7 @@ histogram(s)
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -269,6 +307,27 @@ histogram(s)
 ##D histogram(SISmm)
 ##D histogram(SISmm, FUN=as.yearqtr)
 ## End(Not run)
+
+## Not run: 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
+##D pop <- raster('875430rgb-167772161.0.FLOAT.TIFF')
+##D pop[pop==99999] <- NA
+##D levelplot(pop, zscaleLog=10, par.settings=BTCTheme,
+##D           panel=panel.levelplot.raster, interpolate=TRUE)
+##D 
+##D ##http://neo.sci.gsfc.nasa.gov/Search.html?group=20
+##D landClass <- raster('241243rgb-167772161.0.TIFF')
+##D landClass[landClass==254] <- NA
+##D 
+##D 
+##D s <- stack(pop, landClass)
+##D layerNames(s) <- c('pop', 'landClass')
+##D 
+##D histogram(~asinh(pop)|landClass, data=s,
+##D             scales=list(relation='free'),
+##D             strip=strip.custom(strip.levels=TRUE))
+## End(Not run)
+
 
 
 
@@ -294,8 +353,7 @@ flush(stderr()); flush(stdout())
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -306,6 +364,26 @@ flush(stderr()); flush(stdout())
 ##D 
 ##D horizonplot(SISmm)
 ## End(Not run)
+
+## Not run: 
+##D library(zoo)
+##D 
+##D url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+##D sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
+##D sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
+##D 
+##D spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
+##D gridded(spSST) <- TRUE
+##D proj4string(spSST) = "+proj=longlat +datum=WGS84"
+##D SST <- brick(spSST)
+##D 
+##D idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+##D idx <- as.yearmon(idx)
+##D SST <- setZ(SST, idx)
+##D layerNames(SST) <- as.character(idx)
+##D horizonplot(SST)
+## End(Not run)
+
 
 
 
@@ -330,8 +408,7 @@ flush(stderr()); flush(stdout())
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -345,6 +422,26 @@ flush(stderr()); flush(stdout())
 ##D hovmoller(SISmm, dirXY=y, add.contour=FALSE, xlab='Latitude')##without contours
 ##D 
 ##D hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
+## End(Not run)
+
+## Not run: 
+##D library(zoo)
+##D 
+##D url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+##D sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
+##D sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
+##D 
+##D spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
+##D gridded(spSST) <- TRUE
+##D proj4string(spSST) = "+proj=longlat +datum=WGS84"
+##D SST <- brick(spSST)
+##D 
+##D idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+##D idx <- as.yearmon(idx)
+##D SST <- setZ(SST, idx)
+##D layerNames(SST) <- as.character(idx)
+##D hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
+##D           interpolate=TRUE, par.settings=RdBuTheme)
 ## End(Not run)
 
 
@@ -366,9 +463,10 @@ flush(stderr()); flush(stdout())
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
-contourplot(s, labels=list(cex=0.6), cuts=12)
+contourplot(s, labels=list(cex=0.4), cuts=12)
 
 ##Add a layer of sampling points
 ##and change the theme
@@ -443,8 +541,7 @@ flush(stderr()); flush(stdout())
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 
@@ -528,8 +625,7 @@ flush(stderr()); flush(stdout())
 ##D ##change to your folder...
 ##D setwd('CMSAF')
 ##D listFich <- dir(pattern='2008')
-##D listNC <- lapply(listFich, raster)
-##D stackSIS <- do.call(stack, listNC)
+##D stackSIS <- stack(listFich)
 ##D stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 ##D setwd(old)
 ##D 

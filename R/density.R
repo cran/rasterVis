@@ -29,8 +29,8 @@ setMethod('densityplot',
               dat <- raster2dat(x, FUN, maxpixels)
               p <- densityplot(~values,
                                data=dat, groups=ind,
-                               scales=list(x=list(relation='free'),
-                                 y=list(relation='free', draw=FALSE)),
+                               ## scales=list(x=list(relation='free'),
+                               ##   y=list(relation='free', draw=FALSE)),
                                breaks=100, par.settings=par.settings, pch='.',
                                xlab=xlab, ylab=ylab,
                                panel=panel.superpose,
@@ -49,3 +49,37 @@ setMethod('densityplot',
           )
 
                  
+
+setMethod('densityplot', signature(x='formula', data='Raster'),
+          definition=function(x, data, dirXY, maxpixels=1e+05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            auto.key = list(space = 'right'), 
+            par.settings=rasterTheme,...){
+
+            nms <- layerNames(data)
+            nl <- nlayers(data)
+
+            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
+            df <- getValues(data)
+            df <- as.data.frame(df)
+            names(df) <- make.names(nms)
+
+            xLayer <- getValues(init(data, v='x'))
+            yLayer <- getValues(init(data, v='y'))
+
+            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+
+            if (!missing(dirXY)) {
+              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
+              df <- cbind(df, dirXY)
+            }
+
+            p <- densityplot(x=x, data=df,
+                             xscale.components=xscale.components,
+                             yscale.components=yscale.components,
+                             auto.key = auto.key, 
+                             par.settings=par.settings, ...)
+            p
+          }
+            )

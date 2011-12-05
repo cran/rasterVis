@@ -1,8 +1,8 @@
 Package: rasterVis
 Type: Package
 Title: Visualization methods for the raster package
-Version: 0.10-6
-Date: 2011-10-13
+Version: 0.10-7
+Date: 2011-12-05
 Encoding: UTF-8
 Authors@R: c(person("Oscar", "Perpiñán Lamigueiro",
         email="oscar.perpinan@upm.es", role=c('cre', 'aut')),
@@ -17,6 +17,6 @@ LazyLoad: yes
 Depends: methods, raster(>= 1.8-34), lattice, latticeExtra, hexbin
 Imports: grid, grDevices, sp, zoo, RColorBrewer
 Suggests: mgcv, rgl, ggplot2, colorspace, dichromat
-Packaged: 2011-10-31 10:38:57 UTC; oscar
+Packaged: 2011-12-09 01:42:10 UTC; oscar
 Repository: CRAN
-Date/Publication: 2011-11-02 17:26:33
+Date/Publication: 2011-12-09 09:16:27
