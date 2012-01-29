@@ -211,16 +211,19 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
  
-r <- raster(system.file("external/test.grd", package="raster"))
-s <- stack(r, r*2)
-layerNames(s) <- c('meuse', 'meuse x 2')
-
-if (require(ggplot2)) {
-  theme_set(theme_bw())
-  gplot(s) + geom_tile(aes(fill = value)) + facet_wrap(~ variable) +
-            scale_fill_gradient(low = 'white', high = 'blue') + coord_equal()
-}
-
+## Not run: 
+##D r <- raster(system.file("external/test.grd", package="raster"))
+##D s <- stack(r, r*2)
+##D layerNames(s) <- c('meuse', 'meuse x 2')
+##D 
+##D library(ggplot2)
+##D 
+##D theme_set(theme_bw())
+##D gplot(s) + geom_tile(aes(fill = value)) +
+##D           facet_wrap(~ variable) +
+##D           scale_fill_gradient(low = 'white', high = 'blue') +
+##D           coord_equal()
+## End(Not run)
 
 
 
@@ -440,7 +443,7 @@ flush(stderr()); flush(stdout())
 ##D idx <- as.yearmon(idx)
 ##D SST <- setZ(SST, idx)
 ##D layerNames(SST) <- as.character(idx)
-##D hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
+##D hovmoller(SST, panel=panel.levelplot.raster,
 ##D           interpolate=TRUE, par.settings=RdBuTheme)
 ## End(Not run)
 
@@ -463,6 +466,14 @@ flush(stderr()); flush(stdout())
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+
+## defining the scales for the marginal plot
+levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
+## if a component of the list is null, it is internally calculated
+levelplot(r, scales.margin=list(x=c(100, 1000)))
+
+## log-scale
+levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)

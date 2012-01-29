@@ -11,7 +11,7 @@
 }
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean,
+            margin=TRUE, FUN.margin=mean, scales.margin=NULL,
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
@@ -37,8 +37,12 @@
   \item{margin}{logical, if TRUE a marginal plot of the
     \code{FUN.margin} function to each coordinate will be displayed.}
   \item{FUN.margin}{A function to be applied to each coordinate.}
+  \item{scales.margin}{A list with components \code{x} and
+  \code{y}. Each of these components is a numeric vector of length 2
+  defining the range for each marginal plot. If
+  \code{scales.margin=NULL} the range is internally computed.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
-  \item{xlab, ylab, main}{Arguments for \code{\link{histogram}}.}
+  \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
   \item{between, as.table, scales, xscale.components, yscale.components,
             par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
@@ -71,6 +75,14 @@
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+
+## defining the scales for the marginal plot
+levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
+## if a component of the list is null, it is internally calculated
+levelplot(r, scales.margin=list(x=c(100, 1000)))
+
+## log-scale
+levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)

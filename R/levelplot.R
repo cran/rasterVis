@@ -8,7 +8,7 @@ setGeneric('levelplot')
 setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition=function(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean,
+            margin=TRUE, FUN.margin=mean, scales.margin=NULL,
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
@@ -31,9 +31,7 @@ setMethod('levelplot',
             nms <- make.names(layerNames(dat))
 
             ##Extract coordinates from (sampled) raster
-            x <- xFromCell(dat, 1:ncell(dat))
-            y <- yFromCell(dat, 1:ncell(dat))
-          
+            coords <- xyFromCell(dat, seq_len(ncell(dat)))
             
             ## Extract values 
             dat <- getValues(dat)
@@ -64,8 +62,8 @@ setMethod('levelplot',
             ## Convert to a data.frame for conventional levelplot  
             dat <- as.data.frame(dat)
             names(dat) <- nms
-            df <- cbind(data.frame(x=x, y=y), dat)
-  
+            df <- cbind(coords, dat)
+            
             ##aspect and scales(from sp:::spplot.grid, sp:::longlat.scales, sp:::mapasp)
             bb <- extent(object)
             xlim=c(bb@xmin, bb@xmax)
@@ -105,13 +103,7 @@ setMethod('levelplot',
             }
             
             ## Some fixes for the margin
-            if (has.margin && has.colorkey){
-              if (is.logical(colorkey)){
-                colorkey=list(space='bottom')                
-              } else {
-                colorkey=modifyList(colorkey, list(space='bottom'))
-              }
-
+            if (has.margin){
               if (is.function(par.settings)) par.settings <- par.settings()
               par.settings=modifyList(par.settings,
                 list(
@@ -120,7 +112,13 @@ setMethod('levelplot',
                        xlab.key.padding=3)
                      )
                 )
-            } else {}
+              if (has.colorkey){## put the colorkey at the bottom to leave space for the margin
+                if (is.logical(colorkey)){
+                  colorkey=list(space='bottom')                
+                } else {
+                  colorkey=modifyList(colorkey, list(space='bottom'))
+                }}
+            }
 
             ## Build the formula for levelplot
             form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
@@ -161,7 +159,7 @@ setMethod('levelplot',
             ## And finally, the levelplot call
             p <- levelplot(form, data=df,
                            scales=scales, aspect=aspect,
-                           xlab=xlab, ylab=ylab,
+                           xlab=xlab, ylab=ylab, main = main, 
                            par.settings=par.settings,
                            between=between,
                            as.table=as.table,
@@ -173,19 +171,23 @@ setMethod('levelplot',
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
                              panelMixed 
-                             } else {
-                               requestedPanel 
-                               },
+                           } else {
+                             requestedPanel 
+                           },
                            ...)
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {
-              update(p,
-                     legend=list(
-                       right=list(
-                         fun=legendY, args=list(p, FUN.margin)),
-                       top=list(
-                         fun=legendX, args=list(p, FUN.margin))
-                       ))
-            } else p
+              marginsLegend <- list(right=list(
+                                      fun=legendY,
+                                      args=list(p, FUN=FUN.margin, scale.y=scales.margin$y)),
+                                    top=list(
+                                      fun=legendX,
+                                      args=list(p, FUN=FUN.margin, scale.x=scales.margin$x))
+                                    )
+              if (is.null(p$legend)) p$legend <- list()
+              p$legend <- modifyList(p$legend, marginsLegend)
+              
+            }
+            p
           }
-            )
+          )
