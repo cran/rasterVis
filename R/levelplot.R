@@ -14,7 +14,7 @@ setMethod('levelplot',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
-            scales=list(draw=TRUE),
+            names.attr,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
@@ -70,17 +70,27 @@ setMethod('levelplot',
             ylim=c(bb@ymin, bb@ymax)
   
             if (isLonLat(object)){
-              xlab='Longitude'
-              ylab='Latitude'
+              
+              if (xlab=='') xlab='Longitude'
+              if (ylab=='') ylab='Latitude'
             
               aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
-    
-              if (!is.null(scales$draw) && scales$draw==TRUE){
-                scales=list(x=list(at=pretty(xlim)), y=list(at=pretty(ylim)))
-                scales$y$labels=parse(text=sp:::degreeLabelsNS(scales$y$at))
-                scales$x$labels=parse(text=sp:::degreeLabelsEW(scales$x$at))
+
+              xscale.components <- if (identical(xscale.components, xscale.raster))
+                xscale.raster.EW
+              else if (identical(xscale.components, xscale.raster.subticks))
+                xscale.raster.EWsubticks
+              else xscale.components
+
+              yscale.components <- if (identical(yscale.components, yscale.raster))
+                yscale.raster.NS
+              else if (identical(yscale.components, yscale.raster.subticks))
+                yscale.raster.NSsubticks
+              else yscale.components
+              
+            } else { ## !isLonLat
+              aspect='iso'
               }
-            } else aspect='iso'
 
             if (region==FALSE) colorkey=FALSE
            
@@ -157,8 +167,15 @@ setMethod('levelplot',
             }
             
             ## And finally, the levelplot call
+            if (missing(names.attr)){
+              names.attr <- layerNames(object)
+              } else {
+                if (length(names.attr) != nlayers(object))
+                  stop('Length of names.attr should match number of layers.')
+                }
             p <- levelplot(form, data=df,
-                           scales=scales, aspect=aspect,
+                           ## scales=scales,
+                           aspect=aspect,
                            xlab=xlab, ylab=ylab, main = main, 
                            par.settings=par.settings,
                            between=between,
@@ -167,7 +184,7 @@ setMethod('levelplot',
                            yscale.components=yscale.components,
                            colorkey=colorkey, 
                            contour=contour, region=region, labels=labels,
-                           strip=strip.custom(factor.levels=layerNames(object)),
+                           strip=strip.custom(factor.levels=names.attr),
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
                              panelMixed 

@@ -17,7 +17,7 @@
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
-            scales=list(draw=TRUE),
+            names.attr,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
@@ -43,8 +43,12 @@
   \code{scales.margin=NULL} the range is internally computed.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
-  \item{between, as.table, scales, xscale.components, yscale.components,
-            par.settings, colorkey, panel, contour, region, labels}{Graphical
+  \item{names.attr}{Character, names to use in each panel. If missing its
+  default value is the result of \code{layerNames(x)} (after subsetting
+  the layers to be displayed).}
+  \item{xscale.components, yscale.components}{See
+  \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
+  \item{between, as.table, par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
 	    details.}
 \item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
@@ -76,6 +80,10 @@ f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
 
+## With subticks
+levelplot(r, xscale.components=xscale.raster.subticks,
+             yscale.components=yscale.raster.subticks)
+
 ## defining the scales for the marginal plot
 levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
 ## if a component of the list is null, it is internally calculated
@@ -88,11 +96,22 @@ s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
 contourplot(s, labels=list(cex=0.4), cuts=12)
 
+levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
+
 ##Add a layer of sampling points
 ##and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
+## Using +.trellis and layer from latticeExtra
 levelplot(r, par.settings=BTCTheme) + layer(sp.points(pts, col='red'))
 contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
+## or with a custom panel function
+
+levelplot(r, par.settings=BTCTheme,
+          panel=function(...){
+            panel.levelplot(...)
+            sp.points(pts, col='red')
+            })
+
 
 \dontrun{
 ##Solar irradiation data from CMSAF
