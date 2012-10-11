@@ -11,13 +11,14 @@
 }
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean, scales.margin=NULL,
+            margin=!(any(is.factor(x))), FUN.margin=mean, 
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
             names.attr,
+            scales=list(), scales.margin=NULL,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
@@ -48,10 +49,10 @@
   the layers to be displayed).}
   \item{xscale.components, yscale.components}{See
   \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
-  \item{between, as.table, par.settings, colorkey, panel, contour, region, labels}{Graphical
+  \item{between, as.table, par.settings, scales, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
 	    details.}
-\item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
+  \item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
               panel function.  Defaults to ‘NULL’, in which case the
               Raster* is not transformed.  Other possible values are any
               number that works as a base for taking logarithm, ‘TRUE’
@@ -70,8 +71,13 @@
     The \code{contourplot} method is a wrapper for \code{levelplot} with
     the next additional default settings: \code{cuts=7}, \code{labels=TRUE},
     \code{contour}=TRUE, \code{pretty}=TRUE, \code{region=TRUE} and
-    \code{colorkey=TRUE} (see the help of \code{contourplot} for details.)
-  }
+    \code{colorkey=TRUE} (see the help of \code{contourplot} for
+    details.)
+
+    \code{levelplot} displays categorical data with a convenient
+  legend. You should use \code{\link{ratify}} to define a layer as a
+  categorical variable. See the examples below for details.
+}
   
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link{spplot}}, \code{\link[lattice]{levelplot}}}
@@ -83,6 +89,10 @@ levelplot(r)
 ## With subticks
 levelplot(r, xscale.components=xscale.raster.subticks,
              yscale.components=yscale.raster.subticks)
+
+levelplot(r, xscale.components=xscale.raster.subticks,
+             yscale.components=yscale.raster.subticks,
+             scales=list(x=list(rot=30, cex=0.8)))
 
 ## defining the scales for the marginal plot
 levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
@@ -98,19 +108,35 @@ contourplot(s, labels=list(cex=0.4), cuts=12)
 
 levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
 
-##Add a layer of sampling points
-##and change the theme
+## Add a layer of sampling points
+## and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
-## Using +.trellis and layer from latticeExtra
-levelplot(r, par.settings=BTCTheme) + layer(sp.points(pts, col='red'))
-contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
-## or with a custom panel function
 
+## Using +.trellis and layer from latticeExtra
+levelplot(r, par.settings = BTCTheme) + layer(sp.points(pts, col = 'red'))
+contourplot(r, labels = FALSE) + layer(sp.points(pts, col = 'red'))
+
+## or with a custom panel function
 levelplot(r, par.settings=BTCTheme,
           panel=function(...){
             panel.levelplot(...)
             sp.points(pts, col='red')
             })
+
+
+## Categorical data
+r <- raster(nrow=10, ncol=10)
+r[] = 1
+r[51:100] = 2
+r[3:6, 1:5] = 3
+r <- ratify(r)
+     
+rat <- levels(r)[[1]]
+rat$landcover <- c('Pine', 'Oak', 'Meadow')
+levels(r) <- rat
+r
+
+levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
 
 
 \dontrun{

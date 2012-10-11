@@ -29,6 +29,10 @@ setMethod('histogram',
             as.table=TRUE,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            scales=list(x=list(relation='free'),
+              y=list(relation='free',
+                draw=FALSE)),
+            strip.names=c(TRUE, TRUE),
             par.settings=rasterTheme,
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
@@ -41,12 +45,11 @@ setMethod('histogram',
                              between=between,
                              xscale.components=xscale.components,
                              yscale.components=yscale.components,
-                             scales=list(x=list(relation='free'),
-                               y=list(relation='free',
-                                 draw=FALSE)),
+                             scales=scales,
                              breaks=breaks, col=col,
                              xlab=xlab, ylab=ylab, main=main,
-                             strip.names=c(TRUE, TRUE), ...)
+                             strip.names=strip.names,
+                             ...)
             } else {
               p <- histogram(x, maxpixels = maxpixels, breaks=breaks,
                              main = main, ylab=ylab, xlab=xlab, col=col,...)
@@ -61,7 +64,10 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             yscale.components=yscale.raster,
             par.settings=rasterTheme,...){
 
-            nms <- layerNames(data)
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
+
             nl <- nlayers(data)
 
             data <- sampleRegular(data, maxpixels, asRaster=TRUE)

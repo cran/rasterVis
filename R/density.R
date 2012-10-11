@@ -38,7 +38,11 @@ setMethod('densityplot',
                                  panel.densityplot(x, col.line=col.line, plot.points=FALSE,...)
                                  d <- density(x, na.rm=1)
                                  i <- which.max(d$y)
-                                 ltext(d$x[i],d$y[i],group.value,adj=c(0.3,0),col=col.line, cex=0.7)
+                                 ltext(d$x[i],d$y[i],
+                                       group.value,
+                                       adj=c(0.3,0),
+                                       col=col.line,
+                                       cex=0.7)
                                }
                                )
             } else {
@@ -57,7 +61,10 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
             auto.key = list(space = 'right'), 
             par.settings=rasterTheme,...){
 
-            nms <- layerNames(data)
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
+
             nl <- nlayers(data)
 
             data <- sampleRegular(data, maxpixels, asRaster=TRUE)
