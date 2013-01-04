@@ -2,7 +2,10 @@
 \alias{rasterTheme}
 \alias{BTCTheme}
 \alias{RdBuTheme}
+\alias{BuRdTheme}
+\alias{PuOrTheme}
 \alias{GrTheme}
+\alias{streamTheme}
 \alias{xscale.raster}
 \alias{yscale.raster}
 \alias{xscale.raster.subticks}
@@ -28,6 +31,9 @@ customization of the \code{custom.theme.2} function of
 \code{RdBuTheme}, \code{GrTheme} and
 \code{BTCTheme} are variations of \code{rasterTheme} with different
 color defaults for the region argument.
+
+\code{streamTheme} is a variation of \code{rasterTheme} using black for
+the region, gray for the panel background and a sequential palette for points.
 }
 
 \usage{
@@ -37,8 +43,15 @@ yscale.raster.subticks(lim, ...)
 xscale.raster.subticks(lim, ...)
 rasterTheme(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ...)
 RdBuTheme(region=brewer.pal(9, 'RdBu'), ...)
+BuRdTheme(region=rev(brewer.pal(9, 'RdBu')), ...)
+PuOrTheme(region=brewer.pal(9, 'PuOr'), ...)
 GrTheme(region=rev(brewer.pal(9, 'Greys')), ...) 
 BTCTheme(region=BTC(n=9), ...)
+streamTheme(region='black',
+            symbol=brewer.pal(n=5, name='Blues'),
+            alpha=0.6,
+            panel.background=list(col='gray20'),
+            ...)
 }
 
 \arguments{
@@ -46,7 +59,9 @@ BTCTheme(region=BTC(n=9), ...)
   \item{pch}{Symbol used for points.}
   \item{cex}{A numeric multiplier to control the size of the points.}
   \item{region}{A palette to fill in regions.}
-  \item{...}{Additional arguments for \code{\link{custom.theme.2}},
+  \item{symbol}{A palette to display symbols.}
+  \item{panel.background}{Parameters of the panel background.}
+  \item{alpha, ...}{Additional arguments for \code{\link{custom.theme.2}},
   \code{\link{yscale.components.default}} and
   \code{\link{xscale.components.default}}
 }

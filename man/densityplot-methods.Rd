@@ -18,7 +18,7 @@
 \S4method{densityplot}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...)
 
 \S4method{densityplot}{formula,Raster}(x, data, dirXY,
@@ -26,7 +26,7 @@
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             auto.key = list(space = 'right'), 
-            par.settings=rasterTheme,...)
+            par.settings=rasterTheme(),...)
 
 }
 \arguments{
@@ -70,7 +70,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 densityplot(SISmm)
 densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
@@ -88,7 +88,7 @@ landClass[landClass==254] <- NA
 
 
 s <- stack(pop, landClass)
-layerNames(s) <- c('pop', 'landClass')
+names(s) <- c('pop', 'landClass')
 
 densityplot(~asinh(pop)|landClass, data=s,
             scales=list(relation='free'),

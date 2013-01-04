@@ -13,7 +13,7 @@
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=!(any(is.factor(x))), FUN.margin=mean, 
             maxpixels=1e5,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
@@ -45,7 +45,7 @@
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
   \item{names.attr}{Character, names to use in each panel. If missing its
-  default value is the result of \code{layerNames(x)} (after subsetting
+  default value is the result of \code{names(x)} (after subsetting
   the layers to be displayed).}
   \item{xscale.components, yscale.components}{See
   \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
@@ -154,7 +154,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 levelplot(SISmm)
 

@@ -7,7 +7,7 @@
 Hovmoller plots of Raster objects.}
 \usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
 digits=2, xlab='Direction', ylab='Time',
-par.settings=rasterTheme, xscale.components=xscale.raster,
+par.settings=rasterTheme(), xscale.components=xscale.raster,
 add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
 \arguments{
@@ -65,7 +65,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
 hovmoller(SISmm, dirXY=y, labels=FALSE, xlab='Latitude')##without labels
@@ -89,7 +89,7 @@ SST <- brick(spSST)
 idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
-layerNames(SST) <- as.character(idx)
+names(SST) <- as.character(idx)
 hovmoller(SST, panel=panel.levelplot.raster,
           xscale.components=xscale.raster.subticks,
           interpolate=TRUE, par.settings=RdBuTheme)
