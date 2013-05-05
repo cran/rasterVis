@@ -7,11 +7,13 @@ setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition = function(x, data=NULL, layers,
           margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5,
+          maxpixels=1e5, att=1L,
           par.settings=rasterTheme(),
           between=list(x=0.5, y=0.2),
           as.table=TRUE,
-          xlab='', ylab='', main='',
+          xlab=if(isLonLat(x)) 'Longitude' else NULL,
+          ylab=if(isLonLat(x)) 'Latitude' else NULL,
+          main=NULL,
           names.attr,
           scales=list(), scales.margin=NULL,
           xscale.components=xscale.raster,
@@ -26,13 +28,8 @@ setMethod('levelplot',
                   object <- subset(x, subset=layers)
               } else {object <- x}
 
-              objNames <- names(object)
-
               ## The plot display a sample of the whole object defined with maxpixels
               objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
-              ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
-              dat <- df[, -c(1, 2)]
 
               ## Is factor?
               factorLayers <- is.factor(object)
@@ -46,15 +43,26 @@ setMethod('levelplot',
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
                       stop('all the layers must share the same RAT.')
-                  } else rat <- rat[[1]]
-                  datLevels <- rat[,2]
-                  if (nlayers(object)>1){
-                      dat <- as.data.frame(lapply(dat, factor, levels=datLevels))
-                      dat <- sapply(dat, as.numeric)
                   } else {
-                      dat <- factor(dat, levels=datLevels)
-                      dat <- as.numeric(dat)
+                      rat <- rat[[1]][,-1] ## drop ID column
                   }
+                  ## choose which level to use for the legend
+                  datLevels <- rat[, att]
+
+                  dat <- getValues(objectSample)
+                  if (nlayers(object)>1){
+                      dat <- apply(dat, 2, FUN=function(x)as.numeric(factor(x)))
+                  } else {
+                      dat <- as.numeric(factor(dat))
+                  }
+                  dat <- as.data.frame(dat)
+                  names(dat) <- names(object)
+                  xy <- xyFromCell(objectSample, 1:ncell(objectSample))
+                  df <- cbind(xy, dat)
+              } else {
+                  ## Convert to a data.frame for conventional levelplot
+                  df <- as.data.frame(objectSample, xy=TRUE)
+                  dat <- df[, -c(1, 2)]
               }
 
               ## If zscale is not NULL, transform the values and choose a function
@@ -89,8 +97,8 @@ setMethod('levelplot',
 
               if (isLonLat(object)){
 
-                  if (xlab=='') xlab='Longitude'
-                  if (ylab=='') ylab='Latitude'
+                  ## if (xlab=='') xlab='Longitude'
+                  ## if (ylab=='') ylab='Latitude'
 
                   aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
@@ -158,6 +166,7 @@ setMethod('levelplot',
                       colorkey <- modifyList(colorkey,
                                              list(
                                              at=my.at,
+                                             height=min(1, 0.05*length(datLevels)),
                                              labels=
                                              list(labels=datLevels,
                                                   at=my.labs.at)))
@@ -197,14 +206,14 @@ setMethod('levelplot',
 
               ## Names of each panel
               if (missing(names.attr)){
-                  names.attr <- objNames
+                  names.attr <- names(object)
               } else {
                   names.attr <- as.character(names.attr)
                   if (length(names.attr) != nlayers(object))
                       stop('Length of names.attr should match number of layers.')
               }
               ## Build the formula for levelplot
-              form <- as.formula(paste(paste(names(df)[-c(1, 2)], collapse='+'), 'x*y', sep='~'))
+              form <- as.formula(paste(paste(names(object), collapse='+'), 'x*y', sep='~'))
 
               ## Update the data content of the original data.frame
               df[, -c(1, 2)] <- dat
