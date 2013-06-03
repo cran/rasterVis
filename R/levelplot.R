@@ -7,7 +7,7 @@ setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition = function(x, data=NULL, layers,
           margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5, att=1L,
+          maxpixels=1e5,
           par.settings=rasterTheme(),
           between=list(x=0.5, y=0.2),
           as.table=TRUE,
@@ -22,7 +22,7 @@ setMethod('levelplot',
           colorkey=list(space='right'),
           panel=panel.levelplot,
           contour=FALSE, region=TRUE, labels=FALSE,
-          ...) {
+          ..., att=1L) {
 
               if (!missing(layers)) {
                   object <- subset(x, subset=layers)
@@ -44,7 +44,7 @@ setMethod('levelplot',
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
                       stop('all the layers must share the same RAT.')
                   } else {
-                      rat <- rat[[1]][,-1] ## drop ID column
+                      rat <- as.data.frame(rat[[1]][,-1]) ## drop ID column
                   }
                   ## choose which level to use for the legend
                   datLevels <- rat[, att]
@@ -132,7 +132,7 @@ setMethod('levelplot',
                       if (is.logical(colorkey)){
                           colorkey=colorkey.default
                       } else {
-                          colorkey=modifyList(colorkey, colorkey.default)
+                          colorkey=modifyList(colorkey.default, colorkey)
                       }
                   }
               }
