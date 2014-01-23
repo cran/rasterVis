@@ -20,19 +20,14 @@ Histogram of Raster objects.
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
-            xscale.components=xscale.raster,
-            yscale.components=yscale.raster,
             scales=list(x=list(relation='free'),
               y=list(relation='free',
                 draw=FALSE)),
-            strip.names=c(TRUE, TRUE),
             par.settings=rasterTheme(),
             ...)
 
 \S4method{histogram}{formula,Raster}(x, data, dirXY,
             maxpixels = 1e+05,
-            xscale.components=xscale.raster,
-            yscale.components=yscale.raster,
             strip=TRUE,
             par.settings=rasterTheme(),...)
 
@@ -48,13 +43,18 @@ Histogram of Raster objects.
             \code{RasterStackBrick} object. The result of this function
             is used as the grouping variable of the plot.}
   \item{nint}{Number of breaks for the histogram. See the documentation of
-            \code{\link[lattice]{histogram}} at lattice for details.}
+            \code{lattice::\link[lattice]{histogram}} at lattice for details.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{xlab, ylab, main, col}{Arguments for \code{\link{histogram}}.}
-  \item{between, as.table, xscale.components, yscale.components, scales,
-    strip, strip.names, par.settings}{Graphical parameters of \code{lattice}. See \code{\link{xyplot}} for details.}
-  \item{\dots}{Additional arguments for \code{\link{histogram}}}
+  \item{between, as.table, scales,
+    strip, par.settings}{Graphical parameters of \code{lattice}. See \code{lattice::\link[lattice]{xyplot}} for details.}
+  \item{\dots}{Additional arguments for \code{lattice::\link[lattice]{histogram}}}
 }
+
+\note{If you need different breakpoints in each panel, set \code{breaks}
+  explicitely with \code{NULL}, a numeric or a character (for example,
+  'Sturges'; see \code{\link{hist}} for details)}
+
 
 \author{Oscar Perpiñán Lamigueiro}
 
@@ -66,19 +66,24 @@ f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 histogram(r)
 s <- stack(r, r+500, r-500)
+## Same breakpoints across panels
 histogram(s)
+## Each panel with different breakpoints
+histogram(s, breaks=NULL)
+histogram(s, breaks='Sturges')
+histogram(s, breaks=30)
+
 
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
+old <- setwd(tempdir())
+download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
+   'SISmm2008_CMSAF.zip', method='wget')
+unzip('SISmm2008_CMSAF.zip')
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+listFich <- dir(pattern='\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-setwd(old)
 
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
@@ -87,6 +92,16 @@ names(SISmm) <- month.abb
 
 histogram(SISmm)
 histogram(SISmm, FUN=as.yearqtr)
+
+## With the formula interface you can create histograms for a set of variables
+histogram(~ Jan + Dec, data=SISmm)
+## Or use the coordinates for generating zonal histograms.
+## For example, five histograms for each latitude zone  
+histogram(~Jan|cut(y, 5), data=SISmm)
+## More sophisticated bands can be defined using the dirXY argument 
+histogram(~Jan|cut(dirXY, 5), dirXY = x^2 + y^2, data=SISmm)
+ 
+setwd(old)
 }
 
 \dontrun{
