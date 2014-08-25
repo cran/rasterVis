@@ -20,12 +20,13 @@
             ylab=if(isLonLat(x)) 'Latitude' else NULL,
             main=NULL,
             names.attr,
-            scales=list(), scales.margin=NULL,
+            scales=list(),
+            scales.margin=NULL, axis.margin = FALSE,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
             colorkey=list(space='right'),
-            panel=panel.levelplot,
+            panel=panel.levelplot, pretty = FALSE, 
             contour=FALSE, region=TRUE, labels=FALSE,
             ..., att=1L)
 
@@ -53,6 +54,9 @@
     \code{y} (rows). Each of these components is a numeric vector of
     length 2 defining the range for each marginal plot. If
     \code{scales.margin=NULL} the range is internally computed.}
+
+  \item{axis.margin}{Logical, if \code{TRUE} two simple axis are drawn
+    with the marginal graphics. Its default value is \code{FALSE}.}
 
   \item{maxpixels}{A positive integer giving the number of cells to
     display, for \code{\link{sampleRegular}}.
@@ -152,14 +156,18 @@
 
       }}
 
-      \item{colorkey, contour, region, labels}{Graphical parameters
-	supplied to \code{lattice::\link[lattice]{levelplot}}. Adapted
-      from its help page:
-      \itemize{
+      \item{colorkey, pretty, contour, region, labels}{Graphical
+	parameters supplied to
+	\code{lattice::\link[lattice]{levelplot}}.  Adapted from its
+	help page: \itemize{
 	
 	\item{colorkey: }{logical specifying whether a color key is to
           be drawn alongside the plot (default is \code{TRUE}), or a
           list describing the color key.}
+
+	\item{pretty: }{A logical flag, indicating whether to use pretty
+          cut locations and labels. It is \code{FALSE} for
+          \code{levelplot} and \code{TRUE} for \code{contourplot}.}
 
 	\item{contour: }{A logical flag, indicating whether to draw
 	contour lines. It is \code{TRUE} for \code{contourplot} and

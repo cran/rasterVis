@@ -1,8 +1,43 @@
 Commits in HEAD
-86b9a85 * HEAD origin/master master Histogram formula interface documented; CMSAF route changed
+fb39ea5 * HEAD v0.31 origin/master origin/HEAD master Fixes #10, scale and axis in margin.
+2ba80ff * Travis image
+7dfc345 * Import functions for grid for new legend functions
+799786e *   Merge branch 'travis'
+        |\  
+35514b1 | * origin/travis enable continuous integration via craigcitro/r-travis
+d214c61 * | DOI from zenodo
+        |/  
+04ccc00 * v0.30 ChangeLog for v0.30
+ec13c5f * Fix colorkey check again.
+2e375cc * Fix colorkey check when margin is FALSE
+e216e4b * Axis for marginal graphics in levelplot
+71c843b * New argument `col.arrows` in vectorplot. Fixes #9
+3401b2c * pretty=TRUE is needed in levelplot with NA Raster*
+bfe0ad0 * Test complete NA without cellStats (fails with large rasters ) https://stat.ethz.ch/pipermail/r-sig-geo/2014-June/021233.html
+934a25c * Modify colorkey strategy to allow for changes
+016a73a * BugReports url in Description
+9e7ba3c * v0.28 v0.28
+78a318e * v0.28
+11342bd *   Merge branch 'master' of github.com:oscarperpinan/rastervis
+        |\  
+6d8273b | * Fixes #4: vectorplot for >2layers, dXY, names.attr
+3f4ecd1 * | Problem with unequal spaced factors, fixes #6
+        |/  
+620c471 * Fix projection in chooseRegion
+62512aa * levelplot can display a Raster* completely filled with NA, fixes #3
+153c2ac * pc definition improved, fixes #2
+24a6b78 * zscaleLog = FALSE is equivalent to NULL (suggested by Agustin Lobo)
+5b90ca8 *   Merge branch 'master' of github.com:oscarperpinan/rastervis
+        |\  
+e130d2e | * Better labeling of EW coordinates (thanks to Pascal Oettli)
+96297ab * | xyplot.list for RasterStack in streamplot
+efa2e1d * | isField='dXY' works with more than 2 layers
+        |/  
+8fa874d * v0.27 ChangeLog before uploading to CRAN
+86b9a85 * Histogram formula interface documented; CMSAF route changed
 0fd125b * strip.names blocks usage of strip.custom
 e7de68a * Use of breaks documented
-56ba0d2 * vectorplot gains new args: scaleSlope, aspX/aspY
+56ba0d2 * v0.26 vectorplot gains new args: scaleSlope, aspX/aspY
 ea43dbc * plot3D examples inside dontrun to pass check OSx
 0b562c2 * plot3D gains new args; color management improved
 899400b * plot3D help page with more examples
@@ -73,33 +108,4 @@ b7ace2b * as.data.frame in levelplot instead of getData
 4a0c86e * parallel included in Suggests
 7e9c93a * Add example with panel.2dsmoother for hovmoller
 e93cd35 * Update package version; depends on R 2.14.0 (parallel); imports sp 1.0-6
-1f8b364 * Import degreeLabelsXX from sp
-7a9a048 * extendrange instead of lattice:::extend.limits
-7e1cf6d * degreeLabelsXX has been exported in sp
-d096d33 * degreeLabels copied from sp
-4232e4f * Added parallel cluster in streamplot
-81ebeb3 * vectorplot examples under dontrun
-36fdc07 * streamplot examples added in webpage
-4bc0e2c * streamplot examples added in webpage
-93fa192 * streamplot examples added in webpage
-beeb8c5 * 
-a661ea6 * streamplot examples enclosed under dontrun
-32d6b94 * streamplot: parallel disabled in windows
-c1f3c91 * Date and version updated
-9e2072a * New streamplot methods
-82ad305 * Added reverse and maxpixels (different from narrows) in vectorplot
-add777f * Completed help page of rasterTheme after new themes
-3f0373c * Fixed bug: nints instead of breaks in histogram
-abcdce3 * New themes added.
-5140dcb * rasterTheme() instead of rasterTheme in Rd
-52507bb * rasterTheme() instead of rasterTheme in par.settings
-af9ac89 * Changed layerNames with names in help pages
-51b9729 * Changed layerNames with names in webpage
-9219e38 * Fixed CRS (latlon to longlat) in webpage
-2ebfa8f * New themes added.
-2cafd62 * Categorical data with histogram (is.factor)
-aee8d48 * Updated ChangeLog. To CRAN.
-a25a9c1 * raster 2.0-12 version required. Updated date and version.
-60e3ea5 * Added ChangeLog
-add9d7b * layerNames is deprecated. Replaced with names
 type "e" to show more history

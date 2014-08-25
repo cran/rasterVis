@@ -1,32 +1,35 @@
 setGeneric('levelplot')
 
 setMethod('levelplot',
-          signature(x='Raster', data='missing'),
-          definition = function(x, data=NULL, layers,
-          margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5,
-          par.settings=rasterTheme(),
-          between=list(x=0.5, y=0.2),
-          as.table=TRUE,
-          xlab=if(isLonLat(x)) 'Longitude' else NULL,
-          ylab=if(isLonLat(x)) 'Latitude' else NULL,
-          main=NULL,
-          names.attr,
-          scales=list(), scales.margin=NULL,
-          xscale.components=xscale.raster,
-          yscale.components=yscale.raster,
-          zscaleLog=NULL,
-          colorkey=list(space='right'),
-          panel=panel.levelplot,
-          contour=FALSE, region=TRUE, labels=FALSE,
-          ..., att=1L) {
+          signature(x = 'Raster', data = 'missing'),
+          definition = function(x, data = NULL, layers,
+              margin=!(any(is.factor(x))), FUN.margin=mean,
+              maxpixels = 1e5,
+              par.settings = rasterTheme(),
+              between = list(x = 0.5, y = 0.2),
+              as.table = TRUE,
+              xlab = if(isLonLat(x)) 'Longitude' else NULL,
+              ylab = if(isLonLat(x)) 'Latitude' else NULL,
+              main = NULL,
+              names.attr,
+              scales = list(),
+              scales.margin = NULL, axis.margin = FALSE,
+              xscale.components = xscale.raster,
+              yscale.components = yscale.raster,
+              zscaleLog = NULL,
+              colorkey = list(space = 'right'),
+              panel = panel.levelplot, pretty = FALSE, 
+              contour = FALSE, region = TRUE, labels = FALSE,
+              ..., att = 1L) {
 
               if (!missing(layers)) {
                   object <- subset(x, subset=layers)
               } else {object <- x}
 
-              ## The plot display a sample of the whole object defined with maxpixels
-              objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
+              ## The plot display a sample of the whole object defined
+              ## with maxpixels
+              objectSample <- sampleRegular(object, size=maxpixels,
+                                            asRaster=TRUE)
 
               ## Is factor?
               factorLayers <- is.factor(object)
@@ -115,57 +118,62 @@ setMethod('levelplot',
               }
                             
               if (region==FALSE) colorkey=FALSE
-              
-              has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
-              has.margin <- nlayers(object)==1 && margin
-              has.contour <- (contour==TRUE)
 
+              colorkey.default <- list(space = 'right')
+              if (isTRUE(colorkey)) {
+                  has.colorkey <-  TRUE
+                  colorkey <- colorkey.default
+              } else {
+                  has.colorkey <- is.list(colorkey)
+              }
+
+              has.margin <- (nlayers(object)==1 && margin)
+              
               ## Build the zscale.components and colorkey paying attention to zscaleLog
               if (!is.null(zscaleLog) && !isFactor){
                   zscale <- zscale.components(zlim, zlogbase)
-                  if (has.colorkey){
-                      colorkey.default=list(labels=zscale, raster=TRUE, interpolate=TRUE)
-                      if (is.logical(colorkey)){
-                          colorkey=colorkey.default
-                      } else {
-                          colorkey=modifyList(colorkey.default, colorkey)
-                      }
-                  }
+                  colorkey.default = modifyList(colorkey.default,
+                      list(labels = zscale, raster = TRUE, interpolate = TRUE))
               }
 
               ## Some fixes for the margin
               if (has.margin){
                   if (is.function(par.settings)) par.settings <- par.settings()
-                  par.settings=modifyList(par.settings,
-                  list(
-                  layout.widths=list(right.padding=10),
-                  layout.heights=list(top.padding=10,
-                  xlab.key.padding=3)
-                  )
-                  )
-                  if (has.colorkey){ ## put the colorkey at the bottom to leave space for the margin
-                      if (is.logical(colorkey)){
-                          colorkey=list(space='bottom')
-                      } else {
-                          colorkey=modifyList(colorkey, list(space='bottom'))
-                      }}
+                  par.settings = modifyList(par.settings,
+                      list(
+                          layout.widths = list(right.padding = 10),
+                          layout.heights = list(top.padding = 10,
+                              xlab.key.padding = 3)))
+                  
+                  ## put the colorkey at the bottom to leave space for the margin
+                  if (has.colorkey) {
+                      colorkey = modifyList(colorkey, list(space='bottom'))
+                  } else colorkey = FALSE
               }
-
-
+           
               if (isFactor) {
                   ## define the breaks
                   my.at <- seq(0.5, nLevels + 0.5,
                                length = nLevels + 1)
-                  if (has.colorkey){
-                      ## the labels will be placed vertically centered
-                      my.labs.at <- seq_len(nLevels)
-                      colorkey <- modifyList(colorkey,
-                                             list(
-                                             at=my.at,
-                                             height=min(1, 0.05*nLevels),
-                                             labels=
-                                             list(labels=ratLevels,
-                                                  at=my.labs.at)))
+                  ## the labels will be placed vertically centered
+                  my.labs.at <- seq_len(nLevels)
+                  colorkey.default <- modifyList(colorkey.default,
+                                                 list(
+                                                     at = my.at,
+                                                     height = min(1, 0.05*nLevels),
+                                                     labels = list(labels=ratLevels,
+                                                         at=my.labs.at))
+                                                 )
+              }
+
+              ## Finally construct colorkey with user definition
+              ## (colorkey) and defaults defined by zscale, and
+              ## isFactor
+              if (has.colorkey) {
+                  if (is.logical(colorkey)){
+                      colorkey = colorkey.default
+                  } else {
+                      colorkey = modifyList(colorkey.default, colorkey)
                   }
               }
 
@@ -200,6 +208,13 @@ setMethod('levelplot',
                   }
               }
 
+              ## Finally, the panel function depends on zscaleLog and contour
+              panel <- if (!is.null(zscaleLog) && isTRUE(contour) && !isFactor) {
+                  panelMixed
+              } else {
+                  requestedPanel
+              }
+              
               ## Names of each panel
               if (missing(names.attr)){
                   names.attr <- names(object)
@@ -214,52 +229,50 @@ setMethod('levelplot',
               ## Update the data content of the original data.frame
               df[, -c(1, 2)] <- dat
 
-              ## For each layer: is the raster completely filled with NA?
-              isNA <- cellStats(is.na(object), all)
-              ## If the object is a multilayer Raster and there is at
-              ## least one layer that !isNA, levelplot works
-              ## correctly. If it is a RasterLayer and isNA or if all
-              ## the layers are isNA then we have to provide an empty
-              ## panel.
-              if (all(isNA)) {
+              ## For each layer: is the raster completely filled with
+              ## NA?  If the object is a multilayer Raster and there
+              ## is at least one layer that with non-missing values,
+              ## levelplot works correctly. If it is a RasterLayer and
+              ## is filled with NA or if all the layers are NA then we
+              ## have to provide an empty panel.
+              if (all(is.na(dat))) {
                   region <- FALSE
                   colorkey <- FALSE
                   margin <- FALSE
-                  }
+                  pretty <-  TRUE
+              }
 
               ## And finally, the levelplot call
-              p <- levelplot(form, data=df,
-                             scales=scales,
-                             aspect=aspect,
-                             xlab=xlab, ylab=ylab, main = main,
-                             par.settings=par.settings,
-                             between=between,
-                             as.table=as.table,
-                             xscale.components=xscale.components,
-                             yscale.components=yscale.components,
+              p <- levelplot(form, data = df,
+                             scales = scales,
+                             aspect = aspect,
+                             xlab = xlab, ylab = ylab, main  =  main,
+                             par.settings = par.settings,
+                             between = between,
+                             as.table = as.table,
+                             xscale.components = xscale.components,
+                             yscale.components = yscale.components,
                              colorkey = colorkey,
-                             contour=contour, region=region, labels=labels,
-                             strip=strip.custom(factor.levels=names.attr),
-                             ## The panel depends on zscaleLog and contour
-                             panel=if (!is.null(zscaleLog) && has.contour && !isFactor) {
-                                 panelMixed
-                             } else {
-                                 requestedPanel
-                             },
-                             ...)
+                             contour = contour, region = region, labels = labels,
+                             strip = strip.custom(factor.levels = names.attr),
+                             panel = panel, pretty = pretty, ...)
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
               ## categorical data and col.regions
-              if (isFactor) p <- update(p, at=my.at)
+              if (isFactor) p <- update(p, at = my.at)
 
               ## Plot the margins if required
               if (nlayers(object)==1 && margin) {
                   marginsLegend <- list(right=list(
-                                        fun=legendY,
-                                        args=list(p, FUN=FUN.margin, scale.y=scales.margin$y)),
+                                            fun=legendY,
+                                            args=list(p, FUN = FUN.margin,
+                                                scale.y = scales.margin$y,
+                                                add.axis = axis.margin)),
                                         top=list(
-                                        fun=legendX,
-                                        args=list(p, FUN=FUN.margin, scale.x=scales.margin$x))
+                                            fun=legendX,
+                                            args=list(p, FUN=FUN.margin,
+                                                scale.x = scales.margin$x,
+                                                add.axis = axis.margin))
                                         )
                   if (is.null(p$legend)) p$legend <- list()
                   p$legend <- modifyList(p$legend, marginsLegend)
