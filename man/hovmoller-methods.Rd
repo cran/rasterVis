@@ -44,9 +44,8 @@ for a variety of diagrams with this method.
 \keyword{methods}
 \references{\itemize{
     \item{Hovmoller, E. 1949. The trough and ridge diagram. Tellus 1, 62–66.}
-  \item{\url{http://www.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}}
-  \item{\url{http://www.star.nesdis.noaa.gov/sod/sst/squam/L4/l4_delsst_hovmoller.htm}}
-  \item{\url{http://www.esrl.noaa.gov/psd/map/clim/sst.shtml}}
+    \item{\url{http://www2.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}}
+    \item{\url{http://www.esrl.noaa.gov/psd/map/clim/sst.shtml}}
 }
 }
 
@@ -85,23 +84,39 @@ hovmoller(SISmm, dirXY=sqrt(x^2+y^2))
 
 \dontrun{
 library(zoo)
+library(rasterVis)
 
-url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
-sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
-sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
-
-spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
-gridded(spSST) <- TRUE
-proj4string(spSST) = "+proj=longlat +datum=WGS84"
-SST <- brick(spSST)
-
+## DESCRIPTION: http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/
+setwd(tempdir())
+download.file('http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc', destfile = 'SST.nc')
+SST <- stack('SST.nc')
 idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
-idx <- as.yearmon(idx)
-SST <- setZ(SST, idx)
-names(SST) <- as.character(idx)
-hovmoller(SST, panel=panel.levelplot.raster,
-          xscale.components=xscale.raster.subticks,
-          interpolate=TRUE, par.settings=RdBuTheme)
+tt <- as.yearmon(idx)
+SST <- setZ(SST, tt)
+names(SST) <- as.character(tt)
+
+## Extract month value from a Date or yearmon object
+month <- function(x)format(x, '%m')
+## Compute anomaly using monthly grouping with ave  
+anomaly <- function(x){
+    ## Monthly means
+    mm <- ave(x, month(tt), FUN = mean)
+    ## Monthly standard deviation
+    msd <- ave(x, month(tt), FUN = sd)
+    ## anomaly
+    (x - mm)/msd
+}
+## Use anomaly with calc
+SSTanom <- calc(SST, anomaly)
+SSTanom <- setZ(SSTanom, tt)
+
+## Ok, let's see the result
+hovmoller(SSTanom,
+          at = seq(-3, 3, .25),
+          panel = panel.levelplot.raster,
+          interpolate = TRUE,
+          yscale.components = yscale.raster.subticks,
+          par.settings = BuRdTheme)
 }
 }
 

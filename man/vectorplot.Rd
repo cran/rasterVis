@@ -30,7 +30,9 @@
             maxpixels=1e5, region=TRUE, margin=FALSE,  
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
-            aspX=0.08, aspY=aspX, ...)
+            aspX=0.08, aspY=aspX,
+            key.arrow = NULL,
+            ...)
 
 \S4method{vectorplot}{RasterStack}(object, layers,
             narrows=2e3, lwd.arrows=0.6, col.arrows='black',
@@ -39,6 +41,7 @@
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
             aspX=0.08, aspY=aspX,
+            key.arrow = NULL,
             uLayers, vLayers, ...)
 
 \S4method{streamplot}{Raster}(object, layers,
@@ -77,12 +80,19 @@
 \item{margin}{Logical, if TRUE two marginal graphics show the summaries
   of the object.}
 
-\item{scaleSlope}{Logical or numeric. If TRUE the slope is scaled (but
-  not centered) with its standard deviation. If it is a numeric, the
-  slope is scaled with this value. It is not used if \code{isField='dXY'}.}
+\item{scaleSlope}{Logical or numeric. If TRUE the slope (vector
+  magnitude) is scaled (but not centered) with its standard
+  deviation. If it is a numeric, the slope is scaled with this value.
+  It is not used if \code{isField='dXY'}.}
 
 \item{aspX, aspY}{Numeric. Multipliers to convert the slope values into
   horizontal (\code{aspX}) and vertical (\code{aspY}) displacements.}
+
+
+\item{key.arrow}{A reference (or legend) vector. If is not NULL, it is a list with two named
+  components, \code{size}, a numeric to define the length of the arrow
+  (default 1), and \code{label}, a character to define the label
+  (default \code{''}).} 
 
 \item{uLayers, vLayers}{Numeric, indexes of layers with horizontal and
   vertical components, respectively, when \code{isField='dXY'} and the
@@ -124,12 +134,17 @@ produce 324 droplets.}}}
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
   of the gradient.}
 
-\item{isField}{If \code{TRUE} (the object is a vector field),
-  \code{object} must be a Raster* with two layers, slope and aspect (in
-  this order), following the philosophy of \code{\link{terrain}}. If
-  \code{isField='dXY'} \code{object} must be a Raster* with two layers
-  representing the horizontal and the vertical components,
-  respectively.
+\item{isField}{If \code{TRUE} the object is a vector field. Thus,
+  \code{object} must be a Raster* with two layers, slope (local vector
+  magnitude) and aspect (local vector direction), in
+  this order, following the philosophy of \code{\link{terrain}}. The
+  slope layer will be used as the background if \code{region} is
+  \code{TRUE}. 
+
+  If \code{isField='dXY'} \code{object} must be a Raster* with two
+  layers representing the horizontal and the vertical components,
+  respectively. The slope is computed and used as the background if
+  \code{region} is TRUE.
 }
 
 \item{unit}{Character, angle units of the \code{aspect} layer if
@@ -177,6 +192,14 @@ vectorplot(r1, scaleSlope=5e-6, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.1, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.3, alpha=0.3)
 
+
+## Reference vector
+# Default size (1)
+vectorplot(r1, region = FALSE,
+           key.arrow = list(label = 'm/s'))
+vectorplot(r1, region = FALSE,
+           key.arrow = list(size = 2, label = 'm/s'))
+
 ## A vector field defined with horizontal and vertical components
 u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)
 x <- init(u, v='x')
@@ -190,12 +213,6 @@ vectorplot(field, isField='dXY', narrows=5e2)
 
 ## We can display both components as the background
 vectorplot(field, isField='dXY', narrows=5e2, region=field)
-
-## Or even compute the slope and use it as the background region
-slope <- sqrt(u^2 + y^2)
-vectorplot(field, isField='dXY', narrows=5e2,
-           region=slope, par.settings=BTCTheme())
-
 
 ## It is also possible to use a RasterStack
 ## with more than 2 layers when isField='dXY'
