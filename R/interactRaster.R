@@ -1,6 +1,6 @@
 ## chooseRegion: no visible binding for global variable ‘xin’
 ## chooseRegion: no visible binding for global variable ‘yin’
-if(getRversion() >= "2.15.1") globalVariables(c('xin', 'yin'))
+globalVariables(c('xin', 'yin'))
 
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
@@ -29,7 +29,8 @@ setMethod('identifyRaster', signature(object='Raster'),
                 lbl <- vals[,lay]
               }
               subs <- seq_len(ncell(object))
-              idx <- panel.identify(subscripts=subs, label=lbl, pch=pch, cex=cex, col=col,...)
+                idx <- panel.identify(subscripts = subs, labels = lbl,
+                                      pch = pch, cex = cex, col = col,...)
             }
             trellis.unfocus()
             if (values) return(suppressWarnings(extract(object, idx))) else return(idx)
