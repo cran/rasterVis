@@ -1,4 +1,4 @@
-285653af20b8ff3145e1392e22279843 *DESCRIPTION
+0caba030dcc6703e6aa3259ba8dcc3ba *DESCRIPTION
 fafaf28ab0ce41c75d7afa7ef28c4469 *NAMESPACE
 b3d559d286db72476797ed36ac574c65 *R/bwplot.R
 54f78695efde4a1dfd67ade6653652ef *R/colorkey.R
@@ -18,7 +18,7 @@ b8c3d9dca53d22e8b692a58cf577843e *R/latticeRaster.R
 8821ce337595336e0541c2d13f50b5e6 *R/streamplot.R
 4bb2dc0e4855fd945e6dd80042def4a6 *R/themes.R
 10747029ad44639f2980bd8ae421ed27 *R/vectorplot.R
-b28e019bc7033a5787128a51d63009ed *R/xyplot.R
+fcd4ff26f088f54285e01ef3f03f3f18 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 3a17bb564a601aa2fd48bfdbb95cfdbe *README.md
 b43943341801f723d5be1a0b38b31fc4 *inst/CITATION
@@ -37,4 +37,4 @@ a75b352a51381d23ca6fd8c48e0abe3d *man/levelplot-methods.Rd
 7a035f6026c7b61b9d8b1589abc75c9c *man/splom-methods.Rd
 2a53a3242a5f53563e83c28d39aa1cc6 *man/vectorplot.Rd
 3885f10ed18a17c14c1035a29136867d *man/xyLayer.Rd
-b1e3ad69ce7bb39c51c6f77b374e30c1 *man/xyplot-methods.Rd
+9ce2b84d2ba5521cd421497a98a472e5 *man/xyplot-methods.Rd
