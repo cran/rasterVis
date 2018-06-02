@@ -1,4 +1,4 @@
-0caba030dcc6703e6aa3259ba8dcc3ba *DESCRIPTION
+fc1ed57e71fc8ece21b64c04fe27a153 *DESCRIPTION
 fafaf28ab0ce41c75d7afa7ef28c4469 *NAMESPACE
 b3d559d286db72476797ed36ac574c65 *R/bwplot.R
 54f78695efde4a1dfd67ade6653652ef *R/colorkey.R
@@ -21,6 +21,7 @@ b8c3d9dca53d22e8b692a58cf577843e *R/latticeRaster.R
 fcd4ff26f088f54285e01ef3f03f3f18 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 3a17bb564a601aa2fd48bfdbb95cfdbe *README.md
+1485334c8bd6b3986322f380c83a3659 *build/partial.rdb
 b43943341801f723d5be1a0b38b31fc4 *inst/CITATION
 0b5edd915eee21b124c95e64cb2ade72 *man/bwplot-methods.Rd
 0b4ec978e6fbfb65b2fbbec47c840f15 *man/chooseRegion.Rd
@@ -33,7 +34,7 @@ c218da52c73d204eadcb47199e75d932 *man/hovmoller-methods.Rd
 a75b352a51381d23ca6fd8c48e0abe3d *man/levelplot-methods.Rd
 6c3f38f9fffea1d0314931ba3eff7d25 *man/plot3d.Rd
 9ca82ab34ac7f1018dc40ff5b2f5e30f *man/rasterTheme.Rd
-8ffbb936372d28815d4992f66a5e073f *man/rasterVis-package.Rd
+5807ee5cb9c7bd652b9a39e6c163e53f *man/rasterVis-package.Rd
 7a035f6026c7b61b9d8b1589abc75c9c *man/splom-methods.Rd
 2a53a3242a5f53563e83c28d39aa1cc6 *man/vectorplot.Rd
 3885f10ed18a17c14c1035a29136867d *man/xyLayer.Rd
