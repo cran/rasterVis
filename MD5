@@ -1,4 +1,4 @@
-1d1ae1d0bf3d356a9ce5f8e75018d741 *DESCRIPTION
+ce816e2705de5e61bfe4f2ff4a5182e8 *DESCRIPTION
 04cf9d271879fbd06044fb3b02268cb4 *NAMESPACE
 a8d8ee26caf31ef06379b6fe661e2ddb *R/bwplot.R
 54f78695efde4a1dfd67ade6653652ef *R/colorkey.R
@@ -21,7 +21,7 @@ fc01c06ab4a02e43685268035a97cae4 *R/themes.R
 fcd4ff26f088f54285e01ef3f03f3f18 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 3a17bb564a601aa2fd48bfdbb95cfdbe *README.md
-fbbb5b6374ee37c166e4783e613d1201 *build/partial.rdb
+3dd56e8d376fd1a450af7943af9ed7c7 *build/partial.rdb
 b43943341801f723d5be1a0b38b31fc4 *inst/CITATION
 0f14a78d966a678689af366866e5d99e *man/bwplot-methods.Rd
 0b4ec978e6fbfb65b2fbbec47c840f15 *man/chooseRegion.Rd
@@ -29,13 +29,13 @@ b43943341801f723d5be1a0b38b31fc4 *inst/CITATION
 5aebc74e1c002892b46aa99970463f12 *man/gplot-methods.Rd
 2854fabd58ef8adc362e8075e63d100b *man/hexbinplot.Rd
 ef7a7ce9e08da0bd1daadbe454bc3217 *man/histogram-methods.Rd
-fe7c43a6ae024d58cfa003fe55ad0424 *man/horizonplot-methods.Rd
+04e3e20afc01007453a41b477dc70a1c *man/horizonplot-methods.Rd
 c218da52c73d204eadcb47199e75d932 *man/hovmoller-methods.Rd
-a75b352a51381d23ca6fd8c48e0abe3d *man/levelplot-methods.Rd
-6c3f38f9fffea1d0314931ba3eff7d25 *man/plot3d.Rd
+8ae4cd906a6a4f21d3b252aec65d2620 *man/levelplot-methods.Rd
+06632b9e5b11e84f0f53fcaa9bb30b39 *man/plot3d.Rd
 8d3aff9b566459d93d85cb1e74df23db *man/rasterTheme.Rd
 b1ea1cfcaa1ce45735f9277e2edda8d0 *man/rasterVis-package.Rd
 7a035f6026c7b61b9d8b1589abc75c9c *man/splom-methods.Rd
-2a53a3242a5f53563e83c28d39aa1cc6 *man/vectorplot.Rd
+2ad49198825950569f8f8ace99e0dfe3 *man/vectorplot.Rd
 3885f10ed18a17c14c1035a29136867d *man/xyLayer.Rd
 9ce2b84d2ba5521cd421497a98a472e5 *man/xyplot-methods.Rd
