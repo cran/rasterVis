@@ -1,4 +1,4 @@
-9c41607308015830f35b641438760c42 *DESCRIPTION
+4b3f3b0302a39043327f36559a75aea3 *DESCRIPTION
 199ecebb7833f34b36a8419e12775900 *NAMESPACE
 13f11fd22ea49282d87eb87da21c793b *R/bwplot.R
 eff8eb14bbb1e43f9bfbe1957311600a *R/colorkey.R
@@ -10,11 +10,11 @@ b7ee619f738174b44701a7a92ef8f580 *R/density.R
 cb21661028a59b1aeba73c5b2b8615e4 *R/hexbinplot.R
 cf2cbf90e7a288ca676d42e0abbe7d39 *R/histogram.R
 873f1bc96780881098496c0e11b79f7e *R/horizonplot.R
-7739cfe2eb06afe18821b94bbaf46e70 *R/hovmoller.R
+a07dd591dd4fcb7aaae1731963fd94d4 *R/hovmoller.R
 5d4b146fd06aadf635079514a9b5f642 *R/interactRaster.R
 a06fd14b7687314c94f2f696ff261cb1 *R/latticeRaster.R
 ac3e98912294a7662f851cdd4fb79848 *R/levelplot.R
-9c96d263a28ec22392e8ae13f13fc4d8 *R/plot3d.R
+bae8b7d74c3c0537e400d6d34ccdad0a *R/plot3d.R
 062b96a9272723f6ec4fa8c9eb91baa1 *R/raster2dat.R
 95afa4119cbb01933748dd68908f5e15 *R/splom.R
 8821ce337595336e0541c2d13f50b5e6 *R/streamplot.R
@@ -24,7 +24,7 @@ ae7ecdfe4cef2529befe8f3d22a4e424 *R/xyLayer.R
 bc92f865d7460448464bd21c570e35b6 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 70d34ef33dfc3d0734838ee9463f24b8 *README.md
-40fa111ba7d6fa8428528b62193ebe72 *build/partial.rdb
+83b09236a1e8ebdacd274c4cc57f0445 *build/partial.rdb
 bc22d9d325d290f3ae11a67f30b198a5 *inst/CITATION
 444021483c4bb1041b30f28d2bc9a611 *man/bwplot-methods.Rd
 0b4ec978e6fbfb65b2fbbec47c840f15 *man/chooseRegion.Rd
@@ -33,8 +33,8 @@ b7b8734480ac83133e1e426bedd5eb8f *man/gplot-methods.Rd
 c9faec0152a88f3a51ce1da8400a5917 *man/hexbinplot.Rd
 bc6be63380118683b16ae8df5b8530b0 *man/histogram-methods.Rd
 003e02164c013d60b2e543d0a214975c *man/horizonplot-methods.Rd
-ee9531c25461098153502b4eb37bc6a8 *man/hovmoller-methods.Rd
-d8cd747b735b1755072e32c7389e4508 *man/levelplot-methods.Rd
+13ab258b25e138cdd363ec7eb22a60e2 *man/hovmoller-methods.Rd
+38dd0f192815f8f84955590bb93eea88 *man/levelplot-methods.Rd
 06632b9e5b11e84f0f53fcaa9bb30b39 *man/plot3d.Rd
 8d3aff9b566459d93d85cb1e74df23db *man/rasterTheme.Rd
 79c820d84b5742fff3f4cc1c3eaa7943 *man/rasterVis-package.Rd
