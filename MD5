@@ -1,4 +1,4 @@
-4b3f3b0302a39043327f36559a75aea3 *DESCRIPTION
+032a2b62c376fd646271b1608e4e4b33 *DESCRIPTION
 199ecebb7833f34b36a8419e12775900 *NAMESPACE
 13f11fd22ea49282d87eb87da21c793b *R/bwplot.R
 eff8eb14bbb1e43f9bfbe1957311600a *R/colorkey.R
@@ -13,7 +13,7 @@ cf2cbf90e7a288ca676d42e0abbe7d39 *R/histogram.R
 a07dd591dd4fcb7aaae1731963fd94d4 *R/hovmoller.R
 5d4b146fd06aadf635079514a9b5f642 *R/interactRaster.R
 a06fd14b7687314c94f2f696ff261cb1 *R/latticeRaster.R
-ac3e98912294a7662f851cdd4fb79848 *R/levelplot.R
+58e5214ef5d82aec955d2c55b5841169 *R/levelplot.R
 bae8b7d74c3c0537e400d6d34ccdad0a *R/plot3d.R
 062b96a9272723f6ec4fa8c9eb91baa1 *R/raster2dat.R
 95afa4119cbb01933748dd68908f5e15 *R/splom.R
@@ -24,7 +24,7 @@ ae7ecdfe4cef2529befe8f3d22a4e424 *R/xyLayer.R
 bc92f865d7460448464bd21c570e35b6 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 70d34ef33dfc3d0734838ee9463f24b8 *README.md
-83b09236a1e8ebdacd274c4cc57f0445 *build/partial.rdb
+c2e02bad42f24bcb98a9953934bc7243 *build/partial.rdb
 bc22d9d325d290f3ae11a67f30b198a5 *inst/CITATION
 444021483c4bb1041b30f28d2bc9a611 *man/bwplot-methods.Rd
 0b4ec978e6fbfb65b2fbbec47c840f15 *man/chooseRegion.Rd
