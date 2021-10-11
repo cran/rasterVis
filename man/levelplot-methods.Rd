@@ -229,7 +229,7 @@
           is \code{FALSE} for \code{contourplot} and \code{TRUE} for
           \code{levelplot}.}
 	
-	\item{labels: }{Tipically a logical indicating whether the
+	\item{labels: }{Typically a logical indicating whether the
           labels are to be drawn (default is \code{TRUE} for
           \code{contourplot}), a character or expression vector giving
           the labels associated with the \code{at} values, or a list
@@ -318,6 +318,9 @@
 }
 
 \examples{
+library(raster)
+library(terra)
+
 f <- system.file("external/test.grd", package="raster")
 
 ## raster
@@ -416,7 +419,11 @@ levelplot(rt, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
 ## and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
 
+
+
 ## Using +.trellis and layer from latticeExtra
+library(latticeExtra)
+
 levelplot(r, par.settings = BTCTheme) +
    layer(sp.points(pts, col = 'red'))
 contourplot(r, labels = FALSE) +
@@ -454,7 +461,7 @@ r2[] = 3
 r2[51:100] = 1
 r2[3:6, 1:5] = 5
 
-r3 <- init(r, function(n)sample(c(1, 3, 5), n, replace=TRUE))
+r3 <- raster::init(r, function(n)sample(c(1, 3, 5), n, replace=TRUE))
 
 ## Multilayer categorical Raster* are displayed only if their RATs are the same
 levels(r2) <- levels(r3) <- levels(r)

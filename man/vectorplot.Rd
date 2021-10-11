@@ -177,6 +177,8 @@ produce 324 droplets.}}}
 
 \examples{
 \dontrun{
+library(raster)
+
 proj <- CRS('+proj=longlat +datum=WGS84')
 
 df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
@@ -210,8 +212,8 @@ vectorplot(r1, region = FALSE,
 
 ## A vector field defined with horizontal and vertical components
 u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)
-x <- init(u, v='x')
-y <- init(u, v='y')
+x <- raster::init(u, fun='x')
+y <- raster::init(u, fun='y')
 u <- y * cos(x)
 v <- y * sin(x) 
 field <- stack(u, v)
