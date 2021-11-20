@@ -1,4 +1,4 @@
-32ad22bca9f81ae5d4994e9615cde648 *DESCRIPTION
+5259bf8854af6c1e00bfdfda9a56cef2 *DESCRIPTION
 1d6b0c76395f82ca20a9db66d612a684 *NAMESPACE
 13f11fd22ea49282d87eb87da21c793b *R/bwplot.R
 eff8eb14bbb1e43f9bfbe1957311600a *R/colorkey.R
@@ -17,14 +17,14 @@ bb231007f73ed76a3e129cceefb18488 *R/levelplot.R
 54d78a32ec2ad2ea592b4c51d00abca0 *R/plot3d.R
 4a5b9211491670635000391e8ff09313 *R/raster2dat.R
 43bee9f391d165273b6121e822638ec8 *R/splom.R
-a08f64b9696830ee37bb97487fd620c7 *R/streamplot.R
+d5d1013e72519156f8acb9653841c9b2 *R/streamplot.R
 fc01c06ab4a02e43685268035a97cae4 *R/themes.R
-6aae3fead76345fddb2ec39d788a996c *R/vectorplot.R
+54a67f2547573b1a349992ff36568595 *R/vectorplot.R
 595ebd2bfbd020a810ae4468ba281278 *R/xyLayer.R
 d2ee95686121ce4bfb6df735e6a3bba0 *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 70d34ef33dfc3d0734838ee9463f24b8 *README.md
-f78405c80b110e9d55bef3f7cb7884b5 *build/partial.rdb
+f487a5dc77391c25a3142295b5f08d27 *build/partial.rdb
 bc22d9d325d290f3ae11a67f30b198a5 *inst/CITATION
 06945f9732b05add8830d8b05353e5dd *man/bwplot-methods.Rd
 00b6b0fc535ea195e793329ed018c455 *man/chooseRegion.Rd
