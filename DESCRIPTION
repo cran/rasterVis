@@ -1,7 +1,7 @@
 Package: rasterVis
 Type: Package
 Title: Visualization Methods for Raster Data
-Version: 0.51.1
+Version: 0.51.2
 Encoding: UTF-8
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@upm.es", role=c('cre', 'aut'), comment = c(ORCID = "0000-0002-4134-7196")), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'))
 Description: Methods for enhanced visualization and interaction with raster data. It implements visualization methods for quantitative data and categorical data, both for univariate and multivariate rasters. It also provides methods to display spatiotemporal rasters, and vector fields. See the website for examples.
@@ -15,10 +15,10 @@ Imports: raster (>= 3.4-13), terra (>= 1.4-9), latticeExtra, stats,
         1.0-6), zoo, viridisLite
 Suggests: rgl, ggplot2, colorspace, dichromat, sf
 NeedsCompilation: no
-Packaged: 2021-11-20 19:12:00 UTC; oscar
+Packaged: 2022-01-23 10:57:18 UTC; oscar
 Author: Oscar Perpinan Lamigueiro [cre, aut]
     (<https://orcid.org/0000-0002-4134-7196>),
   Robert Hijmans [aut]
 Maintainer: Oscar Perpinan Lamigueiro <oscar.perpinan@upm.es>
 Repository: CRAN
-Date/Publication: 2021-11-20 20:10:01 UTC
+Date/Publication: 2022-01-23 11:42:42 UTC
