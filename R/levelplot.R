@@ -145,16 +145,6 @@ setGeneric('levelplot')
                                                          at=my.labs.at))
                                        )
     }
-    ## Finally construct colorkey with user definition
-    ## (colorkey) and defaults defined by zscale, and
-    ## isFactor
-    if (has.colorkey) {
-        if (is.logical(colorkey)){
-            colorkey = colorkey.default
-        } else {
-            colorkey = modifyList(colorkey.default, colorkey)
-        }
-    }
 
     ## Construct the margins
     if (is.logical(margin))
@@ -281,7 +271,33 @@ setGeneric('levelplot')
         pretty <-  TRUE
     }
 
-    ## And finally, the levelplot call
+    ## Finally construct colorkey with user definition
+    ## (colorkey) and defaults defined by zscale, and
+    ## isFactor
+    if (has.colorkey) {
+        if (is.null(colorkey$space))
+            colorkey$space = "right"
+        
+        if (!is.null(colorkey$title)) #Define title of the colorkey
+        {
+
+            if (is.null(colorkey$title.control))
+                colorkey$title.control  <- list()
+            
+            if (is.null(colorkey$title.control$side))
+                ## Modify the default location strategy implemented in lattice::draw.colorkey
+                colorkey$title.control$side <- 
+                    switch(colorkey$space,
+                           right = "top",
+                           left = "top",
+                           bottom = "left",
+                           top = "left")
+            
+            colorkey = modifyList(colorkey.default, colorkey)
+        }
+    }
+
+    ## And the levelplot call
     p <- levelplot(form, data = df,
                    scales = scales,
                    aspect = aspect,
@@ -296,24 +312,6 @@ setGeneric('levelplot')
                    labels = labels,
                    strip = strip.custom(factor.levels = names.attr),
                    panel = panel, pretty = pretty, ...)
-
-    ## Colorkey Title
-    if (has.colorkey && !is.null(colorkey$title))
-    {
-        space <- colorkey$space
-        title <- colorkey$title
-        title.gpar <- if (is.null(colorkey$title.gpar)) list()
-                      else colorkey$title.gpar
-        ## Modify the legend field constructed by levelplot,
-        ## replacing draw.colorkey by drawCK, and adding the
-        ## title and title.gpar components.
-        p$legend[[space]] <- list(fun = drawCK,
-                                  args = list(key = modifyList(
-                                                  p$legend[[space]]$args$key,
-                                                  list(title = title,
-                                                       title.gpar = title.gpar)),
-                                              space = space))
-    }
 
     ## panel.levelplot uses level.colors to encode values
     ## with colors. It does not work properly with
@@ -401,7 +399,15 @@ setMethod('levelplot',
                       rat <- as.data.frame(rat[[1]])
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
+                      if ("ID" %in% names(rat))
+                          ratID <- rat$ID
+                      else
+                      {## If there is no ID column use the first one 
+                          if (is.numeric(rat[,1]))
+                              ratID <- rat[,1]
+                          else ## but if this is not numeric, build a simple ID sequence
+                              ratID <- seq_len(nrow(rat))
+                      }
                       objectSample <- subs(objectSample,
                                            data.frame(ratID, seq_along(ratID)))
                       names(objectSample) <- names(object)
@@ -478,7 +484,7 @@ setMethod('levelplot',
               }
 
               if (isFactor) {
-                  rat <- terra::levels(object)
+                  rat <- terra::cats(object)
                   ## It works correctly only if all the layers
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
@@ -487,15 +493,23 @@ setMethod('levelplot',
                       rat <- as.data.frame(rat[[1]])
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
-                      objectSample <- subst(objectSample,
-                                           ratID, seq_along(ratID))
+                      if ("ID" %in% names(rat))
+                          ratID <- rat$ID
+                      else
+                      {## If there is no ID column use the first one 
+                          if (is.numeric(rat[,1]))
+                              ratID <- rat[,1]
+                          else ## but if this is not numeric, build a simple ID sequence
+                              ratID <- seq_len(nrow(rat))
+                      }
+                      objectSample <- terra::classify(objectSample,
+                                               cbind(ratID, seq_along(ratID)))
                       names(objectSample) <- names(object)
                   }
               } else rat <- NULL
               
               ## Convert to a data.frame for conventional levelplot
-              df <- terra::as.data.frame(objectSample, xy=TRUE)
+              df <- terra::as.data.frame(objectSample, xy=TRUE, na.rm = FALSE)
               ## Number of layers
               nly  <- nlyr(object)
               ## Names of layers
@@ -518,3 +532,4 @@ setMethod('levelplot',
               p
           }
           )
+
