@@ -1,5 +1,5 @@
-9bd61d774defd41ee1f86f021c57985e *DESCRIPTION
-1d6b0c76395f82ca20a9db66d612a684 *NAMESPACE
+3b9c1936fe51374cd0a64e956ad8559c *DESCRIPTION
+573cc861f4c24daa8f7e6e4735d85286 *NAMESPACE
 13f11fd22ea49282d87eb87da21c793b *R/bwplot.R
 cafa3dc89eef2c11fc19fe471902afeb *R/contourplot.R
 4ad9a243fb95d5068e21076ed0106075 *R/dataframe.R
@@ -11,7 +11,7 @@ c4dd8ff09691dc5a729ab0770029d45f *R/histogram.R
 1d2b75a5569ba148d7d4a15d9c2e5621 *R/horizonplot.R
 f71a3fb5168270d68ca9c22be83ee489 *R/hovmoller.R
 19ebac09af3f4626e8e87dc02c6e895a *R/interactRaster.R
-a06fd14b7687314c94f2f696ff261cb1 *R/latticeRaster.R
+5499afdd6d7b2dc0f443ab6e4e53e582 *R/latticeRaster.R
 20fe8d14659191b88d375a336563585a *R/levelplot.R
 f4d48fe6f7c647bbaa3b7bfa9a23d66b *R/plot3d.R
 4a5b9211491670635000391e8ff09313 *R/raster2dat.R
@@ -23,8 +23,8 @@ ef9e8992a1d482b04c2b8e53f8b4ebb1 *R/vectorplot.R
 6aa8ddd379947cf0f1866611504888ef *R/xyplot.R
 221868846656ee15879122d8d834f367 *R/zscale.R
 70d34ef33dfc3d0734838ee9463f24b8 *README.md
-6056bbc7b8571254707bc8f36c4cc800 *build/partial.rdb
-bc22d9d325d290f3ae11a67f30b198a5 *inst/CITATION
+f16ffc113cde1a5074ee356d0fa2a237 *build/partial.rdb
+6dc26369f43f8a2d3dbd511a142dff46 *inst/CITATION
 06945f9732b05add8830d8b05353e5dd *man/bwplot-methods.Rd
 696c4e61867baf7593748521358e99a7 *man/chooseRegion.Rd
 c7475caa723c58210fe2a3176969d4ae *man/densityplot-methods.Rd
@@ -32,12 +32,13 @@ c7475caa723c58210fe2a3176969d4ae *man/densityplot-methods.Rd
 fdc68b2123d1286c203d6499d5e74fc6 *man/hexbinplot.Rd
 7136609a876a95ec2584c53f186c495d *man/histogram-methods.Rd
 49d11d24d16ebad5fe6ba62ca2c680a6 *man/horizonplot-methods.Rd
-29adb23118784ac141a91de565067f5d *man/hovmoller-methods.Rd
-09071758d69477aea2ba48e2355e8de0 *man/levelplot-methods.Rd
+9c4dfae8a549c2854f3890b9c5dcec18 *man/hovmoller-methods.Rd
+16f3ac949a5beff239b843a8a8743875 *man/levelplot-methods.Rd
+7c35937d15d3fd40292e7ea4cdd3a90f *man/miscLattice.Rd
 62fa1e4b59faafbbe76214c2bd3fb4b9 *man/plot3d.Rd
 8d3aff9b566459d93d85cb1e74df23db *man/rasterTheme.Rd
 79c820d84b5742fff3f4cc1c3eaa7943 *man/rasterVis-package.Rd
 b3755195698ffaa46561ed0ee313e49c *man/splom-methods.Rd
-7792ae8046e73880f6cbc8196ca8ac94 *man/vectorplot.Rd
+1eb8b2ef4d51d5d69c122c2e4838b1f4 *man/vectorplot.Rd
 2c777449b1dead65800d6aee5af004cb *man/xyLayer.Rd
 29db637eabfe0459195383691205eab5 *man/xyplot-methods.Rd
