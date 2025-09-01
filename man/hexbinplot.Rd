@@ -34,12 +34,12 @@
 \item{data}{A \code{Raster} object or a \code{SpatRaster} object.}
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}
-\item{maxpixels}{A numeric, for \code{\link{sampleRegular}} or \code{spatSample}.}
+\item{maxpixels}{A numeric, for \code{\link[raster]{sampleRegular}} or \code{\link[terra]{spatSample}}.}
 \item{alpha}{A numeric, transparency of the points.}
 \item{xscale.components, yscale.components,par.settings}{Customization of \code{lattice}. See \code{xyplot}
 for details.}
-\item{\dots}{Additional arguments for the \code{xyplot} and
-  \code{\link{hexbinplot}} functions.}
+\item{\dots}{Additional arguments for the \code{\link[lattice]{xyplot}} and
+  \code{\link[hexbin]{hexbinplot}} functions.}
 }
 
 \author{Oscar Perpiñán Lamigueiro}
@@ -55,7 +55,7 @@ names(r)
 xyplot(test~y, data=r, alpha=0.5)
 
 \dontrun{
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

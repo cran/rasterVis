@@ -15,10 +15,10 @@ plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)
 \arguments{
   \item{x}{A \code{Raster} or a \code{SpatRaster} object.}
   \item{data}{Not used.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
+  \item{maxpixels}{A numeric, for \code{\link[raster]{sampleRandom}} or \code{\link[terra]{spatSample}}.}
   \item{plot.loess}{Logical, should a loess fit be drawn?.}
   \item{colramp}{A function accepting an integer \code{n} as argument
-    and returning \code{n} colors (for \code{\link{hexbinplot}}).}
+    and returning \code{n} colors (for \code{\link[hexbin]{hexbinplot}}).}
   \item{varname.cex}{A numerical multiplier to control the size of the
     variables names.}
   \item{...}{Additional arguments for splom.}
@@ -29,7 +29,7 @@ plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)
 \note{While the hexagonal binning is quite fast for large datasets, the
   use of the \code{loess} fit will slow this function.}
 
-\seealso{\code{\link{hexbinplot}}, \code{\link[lattice]{splom}}
+\seealso{\code{\link[hexbin]{hexbinplot}}, \code{\link[lattice]{splom}}
   }
 
   \examples{
@@ -37,7 +37,7 @@ plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)
 library(raster)
 library(terra)
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

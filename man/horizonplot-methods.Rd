@@ -40,9 +40,9 @@
 \code{\link{xyLayer}}).}
 
 \item{stat}{a function to be applied to summarize the values by
-  zone. See \code{\link{zonal}} for details.}
+  zone. See \code{\link[raster]{zonal}} for details.}
 
-\item{digits}{An integer, number of digits for \code{\link{zonal}}.}
+\item{digits}{An integer, number of digits for \code{\link[raster]{zonal}}.}
 
 \item{origin}{From the \code{latticeExtra} help page: "the baseline y
           value for the first (positive) segment (i.e. the value at
@@ -151,7 +151,7 @@ horizonplot(SST, horizonscale=1, origin=0)
 
 \dontrun{
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

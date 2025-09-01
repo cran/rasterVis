@@ -70,7 +70,7 @@
     to be displayed.}
 
   \item{maxpixels}{A positive integer giving the number of cells to
-    display, for \code{\link{sampleRegular}}.
+    display, for \code{\link[raster]{sampleRegular}}.
   }
 
   \item{margin}{A list or a logical. If it is TRUE, two marginal
@@ -101,7 +101,7 @@
 	\code{FALSE}. If it is \code{TRUE} or a list, a simple axis is
 	drawn with the marginal graphic.  If it is a list, its
 	components define the graphical parameters of the axis using
-	\code{grid::\link{gpar}}.  The default value is \code{gpar(col =
+	\code{grid::\link[grid]{gpar}}.  The default value is \code{gpar(col =
 	  'darkgrey', fontsize = 7)}
 
     }
@@ -122,7 +122,7 @@
       character string or an expression that gets used as the label, but
       can also be a list that controls further details.  Expressions are
       treated as specification of LaTeX-like markup as described in
-      \code{\link{plotmath}}.  The label can be a vector, in which case
+      \code{\link[grDevices]{plotmath}}.  The label can be a vector, in which case
       the components will be spaced out horizontally (or vertically for
       \code{ylab}).  This feature can be used to provide column or row
       labels rather than a single axis label.
@@ -131,10 +131,10 @@
       be specified as the \code{xlab} component (which may be
       unnamed if it is the first component).  The label can be
       missing, in which case the default will be used.  Further
-      named arguments are passed on to \code{\link{textGrob}}; this can
+      named arguments are passed on to \code{\link[grid]{textGrob}}; this can
       include arguments controlling positioning like \code{just} and
       \code{rot} as well as graphical parameters such as \code{col} and
-      \code{font} (see \code{\link{gpar}} for a full list).
+      \code{font} (see \code{\link[grid]{gpar}} for a full list).
       
       \code{main}, \code{xlab} and \code{ylab} can also be
       arbitrary "grobs" (grid graphical objects).}
@@ -159,7 +159,7 @@
     case, the text must be the \code{label} component of the list (or
     unnamed if it is the first component). The other components of the
     list are the graphical parameters and are passed to the
-    \code{grid::\link{gpar}} function (for example, \code{col},
+    \code{grid::\link[grid]{gpar}} function (for example, \code{col},
     \code{fontfamily}, \code{fontface}, etc.). Besides, it may include a
     component named \code{title.control}: (extracted from
     \code{lattice::\link[lattice]{levelplot}}): A list providing control
@@ -192,7 +192,7 @@
 
       \item par.settings: A list to choose some display settings
         temporarily. This list is supplied to
-        \code{\link{trellis.par.set}}. When the resulting object
+        \code{\link[lattice]{trellis.par.set}}. When the resulting object
         is plotted, these options are applied temporarily for the
         duration of the plotting, after which the settings revert
         back to what they were before.  This enables the user to
@@ -205,8 +205,8 @@
 	\code{\link{BuRdTheme}}, \code{\link{GrTheme}},
 	\code{\link{BTCTheme}}, \code{\link{PuOrTheme}} and
 	\code{\link{streamTheme}} (for \code{\link{streamplot}}).  These
-	themes are defined using \code{\link{custom.theme}}. You can use
-	\code{\link{rasterTheme}} or \code{\link{custom.theme}} to
+	themes are defined using \code{\link[latticeExtra]{custom.theme}}. You can use
+	\code{\link{rasterTheme}} or \code{\link[latticeExtra]{custom.theme}} to
 	define your own theme (see examples for details).
       
 
@@ -224,8 +224,8 @@
 
       \item panel: A function object or a character string giving the
           name of a predefined function. The default is
-          \code{\link{panel.levelplot}}. Another useful option is
-          \code{\link{panel.levelplot.raster}}.
+          \code{\link[lattice]{panel.levelplot}}. Another useful option is
+          \code{\link[lattice]{panel.levelplot.raster}}.
 
     }}
     
@@ -253,7 +253,7 @@
           the labels associated with the \code{at} values, or a list
           whose components define the labels and their graphical
           parameters. Read the help page of
-          \code{\link{panel.levelplot}} for details.}
+          \code{\link[lattice]{panel.levelplot}} for details.}
       }
     
   \item{zscaleLog}{Controls whether the Raster* will be log transformed
@@ -267,8 +267,8 @@
   \item{\dots}{Additional arguments for
     \code{lattice::\link[lattice]{levelplot}},
     \code{lattice::\link[lattice]{xyplot}},
-    \code{\link{panel.levelplot}} and
-    \code{\link{panel.levelplot.raster}}. The most important ones are:
+    \code{\link[lattice]{panel.levelplot}} and
+    \code{\link[lattice]{panel.levelplot.raster}}. The most important ones are:
     \itemize{
 
       \item layout: From the help page of
@@ -291,7 +291,7 @@
         lower and upper limits for the y-axis.
       
       \item shrink: From the help page of
-        \code{\link{panel.levelplot}}: Either a numeric vector of
+        \code{\link[lattice]{panel.levelplot}}: Either a numeric vector of
         length 2 (meant to work as both x and y components), or a list
         with components x and y which are numeric vectors of length 2.
         This allows the rectangles to be scaled proportional to the
@@ -303,7 +303,7 @@
       \item border, border.lty, border.lwd: Graphical parameters
 	(color, type of line, width of line, respectively) of each
 	rectangle borders. See the help page of
-	\code{\link{panel.levelplot}} for details.
+	\code{\link[lattice]{panel.levelplot}} for details.
     }
   }
 }
@@ -323,11 +323,11 @@
   \code{\link{contourplot}} for details.)
   
   \code{levelplot} displays categorical data with a convenient
-  legend. You should use \code{\link{ratify}} to define a layer as a
+  legend. You should use \code{\link[raster]{ratify}} to define a layer as a
   categorical variable. It is able to display multilayer categorical
   rasters \bold{only if} they share the same RAT (Raster Attribute
   Table). \code{levelplot} is not able to display multilayer rasters
-  with factor \bold{and} numeric layers. See \code{\link{ratify}} and the
+  with factor \bold{and} numeric layers. See \code{\link[raster]{ratify}} and the
   examples below for details.
 }
   
@@ -505,7 +505,7 @@ levelplot(s)
 levelplot(s, att=2)
 
 \dontrun{
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

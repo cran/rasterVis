@@ -59,18 +59,18 @@
             \code{RasterStackBrick} object or to the time index of a
 	    \code{SpatRaster} object. The result of this function
             is used as the grouping variable of the plot.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
+  \item{maxpixels}{A numeric, for \code{\link[raster]{sampleRandom}} or \code{\link[terra]{spatSample}}.}
   \item{draw.labels}{Logical. If TRUE (default), labels are displayed
     over the maximum value of each layer. If FALSE, a key is displayed
     according to the \code{auto.key} argument.}
   \item{xlab, ylab, main, xscale.components, yscale.components,
-    par.settings, auto.key}{Arguments for \code{\link{densityplot}}.}
+    par.settings, auto.key}{Arguments for \code{\link[lattice]{densityplot}}.}
   \item{att}{Integer or character to choose which variable (column) in
     the RAT table should be used.}
-  \item{\dots}{Additional arguments for \code{\link{densityplot}}}
+  \item{\dots}{Additional arguments for \code{\link[lattice]{densityplot}}}
 }
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link[lattice:histogram]{lattice:densityplot()}},\code{\link{xscale.raster}},
+\seealso{\code{\link[lattice]{densityplot}},\code{\link{xscale.raster}},
             \code{\link{yscale.raster}}, \code{\link{rasterTheme}}}
 
 \examples{
@@ -89,7 +89,7 @@ densityplot(s, draw.labels = FALSE)
 \dontrun{
 library(zoo)
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

@@ -25,7 +25,7 @@ add.contour=FALSE, labels=FALSE, region=TRUE, ...)
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to be applied to the zones calculated with
     \code{dirXY} and \code{zonal}.}
-  \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
+  \item{digits}{An integer, number of digits for \code{\link[raster]{zonal}}.}
   \item{xlab, ylab}{Labels of the axis.}
   \item{par.settings}{Customization of lattice. See
     \code{\link{levelplot}} and \code{\link{rasterTheme}} for details.}
@@ -48,7 +48,7 @@ for a variety of diagrams with this method.
 }
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link[lattice]{levelplot}},
-  \code{\link{zonal}}, \code{\link{panel.2dsmoother}}
+  \code{\link[raster]{zonal}}, \code{\link[latticeExtra]{panel.2dsmoother}}
   }
 \keyword{methods}
 \references{\itemize{
@@ -63,7 +63,7 @@ for a variety of diagrams with this method.
 library(raster)
 library(terra)
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

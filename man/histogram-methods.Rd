@@ -68,10 +68,10 @@ Histogram of Raster objects.
             is used as the grouping variable of the plot.}
   \item{nint}{Number of breaks for the histogram. See the documentation of
             \code{lattice::\link[lattice]{histogram}} at lattice for details.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
+  \item{maxpixels}{A numeric, for \code{\link[raster]{sampleRandom}} or \code{\link[terra]{spatSample}}.}
   \item{att}{If \code{x} is a factor, integer or character to choose
     which variable (column) in the RAT table should be used.}
-  \item{xlab, ylab, main, col}{Arguments for \code{\link{histogram}}.}
+  \item{xlab, ylab, main, col}{Arguments for \code{\link[lattice]{histogram}}.}
   \item{names.attr}{Character or expression, names to use in each
     panel. If missing its default value is the result of \code{names(x)}
     (after subsetting the layers to be displayed).}
@@ -82,7 +82,7 @@ Histogram of Raster objects.
 
 \note{If you need different breakpoints in each panel, set \code{breaks}
   explicitely with \code{NULL}, a numeric or a character (for example,
-  'Sturges'; see \code{\link{hist}} for details)}
+  'Sturges'; see \code{\link[graphics]{hist}} for details)}
 
 
 \author{Oscar Perpiñán Lamigueiro}
@@ -123,7 +123,7 @@ histogram(r, att = "class")
 \dontrun{
 library(zoo)
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

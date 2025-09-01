@@ -23,11 +23,11 @@
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}
 \item{stat}{a function to be applied to summarize the values by
-  zone. See \code{\link{zonal}} for details.}
+  zone. See \code{\link[raster]{zonal}} for details.}
 \item{xlab, ylab}{Labels of the axis.}
 \item{par.settings}{Customization of \code{lattice}. See \code{xyplot}
 for details.}
-\item{digits}{An integer, number of digits for \code{\link{zonal}}.}
+\item{digits}{An integer, number of digits for \code{\link[raster]{zonal}}.}
 \item{auto.key}{A logical or a list. If it is FALSE (default) a label
   with the value of the direction (as defined by \code{dirXY})will be
   printed next to each line. You should read the help page of
@@ -44,7 +44,7 @@ for details.}
 library(raster)
 library(terra)
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

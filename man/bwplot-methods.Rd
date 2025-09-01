@@ -11,8 +11,8 @@
 
 \description{
 Methods for \code{bwplot} and \code{RasterStackBrick} objects using
-a combination of \code{\link{panel.violin}} and
-\code{\link{panel.bwplot}} to compose the graphic.
+a combination of \code{\link[lattice]{panel.violin}} and
+\code{\link[lattice]{panel.bwplot}} to compose the graphic.
 }
 \usage{
 \S4method{bwplot}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
@@ -62,9 +62,9 @@ a combination of \code{\link{panel.violin}} and
             \code{RasterStackBrick} object, or the time index of a
   \code{SpatRaster} object. The result of this function
             is used as the grouping variable of the plot.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
+  \item{maxpixels}{A numeric, for \code{\link[raster]{sampleRandom}} or \code{\link[terra]{spatSample}}.}
   \item{xscale.components, yscale.components}{Graphical
-	    parameters of \code{lattice}. See \code{\link{xyplot}} for
+	    parameters of \code{lattice}. See \code{\link[lattice]{xyplot}} for
 	    details.}
   \item{horizontal}{Defaults to \code{FALSE}, meaning that the right hand
   of the formula is a factor or shingle.}
@@ -72,16 +72,16 @@ a combination of \code{\link{panel.violin}} and
   \item{violin}{Logical, if \code{TRUE} the panel is built with
     \code{panel.violin} and \code{panel.bwplot}.}
   \item{draw.points}{Logical, if \code{TRUE} raw points are displayed in
-    the background with \code{\link{panel.stripplot}}}
+    the background with \code{\link[lattice]{panel.stripplot}}}
   \item{do.out}{Logical, if \code{TRUE} outliers are drawn.}
   \item{box.ratio}{ratio of box thickness to inter box space}
   \item{violin.ratio}{ratio of the thickness of each violin and inter violin space}
-  \item{par.settings, scales}{See \code{\link{xyplot}} for details.}
-  \item{\dots}{Additional arguments for \code{\link{bwplot}}}
+  \item{par.settings, scales}{See \code{\link[lattice]{xyplot}} for details.}
+  \item{\dots}{Additional arguments for \code{\link[lattice]{bwplot}}}
 }
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link{bwplot}},
-  \code{\link{panel.violin}},
+\seealso{\code{\link[lattice]{bwplot}},
+  \code{\link[lattice]{panel.violin}},
   \code{\link[raster]{subset}},
   \code{\link{bwTheme}}
 }
@@ -108,7 +108,7 @@ bwplot(s, draw.points = TRUE,
 
 \dontrun{
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())

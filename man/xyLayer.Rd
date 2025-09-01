@@ -18,8 +18,8 @@ xyLayer(object, dirXY = y, vector = TRUE, maxpixels)
     else a \code{Raster} or a \code{SpatRaster} object is returned.
   }
   \item{maxpixels}{A positive integer giving the number of cells to
-    display, for \code{\link{sampleRegular}} or
-    \code{\link{spatSample}}.}
+    display, for \code{\link[raster]{sampleRegular}} or
+    \code{\link[terra]{spatSample}}.}
   }
 
 \value{

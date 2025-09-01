@@ -64,7 +64,7 @@
 \arguments{
   \item{object}{A Raster object. If \code{isField=FALSE} the vector
   field is calculated internally from the result of
-  \code{\link{terrain}}. }
+  \code{\link[terra]{terrain}}. }
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
 
@@ -131,13 +131,13 @@ produce 324 droplets.}
     the color key (see the \code{colorkey} section of the help page of
     \code{levelplot} for details).}
   
-\item{parallel}{Logical, TRUE (default) to use \code{\link{parallel}}
+\item{parallel}{Logical, TRUE (default) to use \code{\link[parallel]{parallel}}
   package.}
 \item{cl}{a cluster object. Read the help page of
-  \code{\link{parLapply}} for details.}
+  \code{\link[parallel]{parLapply}} for details.}
 
 \item{mc.cores}{The number of cores to use if \code{parallel=TRUE} and
-  no \code{cl} is provided. Read the help page of \code{\link{mclapply}}
+  no \code{cl} is provided. Read the help page of \code{\link[parallel]{mclapply}}
   for details.}
 
 \item{region}{Logical, if \code{TRUE} the region is displayed as the
@@ -148,7 +148,7 @@ produce 324 droplets.}
   \code{object} must be a Raster* with two layers, slope (local vector
   magnitude) and aspect (local vector direction), in this order. The
   aspect angle, following the conventions of
-  \code{raster::\link{terrain}}, must be computed clockwise from 0 (due
+  \code{raster::\link[raster]{terrain}}, must be computed clockwise from 0 (due
   north). The slope layer will be used as the background if \code{region}
   is \code{TRUE}.
 
@@ -174,11 +174,11 @@ produce 324 droplets.}
   
 \author{Oscar Perpiñán Lamigueiro}
 
-\seealso{\code{\link{panel.arrows}},
+\seealso{\code{\link[lattice]{panel.arrows}},
   \code{\link{levelplot}},
-  \code{\link{terrain}},
-  \code{\link{mclapply}},
-  \code{\link{parLapply}}
+  \code{\link[raster]{terrain}},
+  \code{\link[parallel]{mclapply}},
+  \code{\link[parallel]{parLapply}}
 }
 
 \examples{

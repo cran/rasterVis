@@ -6,17 +6,14 @@ dfRegular <- function(data, maxpixels)
                                     size = maxpixels,
                                     asRaster = TRUE)
         df <- raster::as.data.frame(dataSample, xy = TRUE)
-        
+        names(df) <- c("x", "y", names(data))
     } else
     {
-        idx <- spatSample(data,
+        df <- spatSample(data,
                           size = maxpixels,
                           method = "regular",
-                          cells = TRUE)
-        vals <- data[idx]
-        xy <- terra::xyFromCell(data, idx)
-        df <- cbind(xy, vals)
+                          xy = TRUE)
+        names(df) <- c("x", "y", names(data))
     }
-
     df
 }

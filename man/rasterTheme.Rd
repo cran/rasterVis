@@ -91,17 +91,17 @@ bwTheme(box.rectangle = list(col='black', fill = 'gray'),
   \item{region}{A vector of colors that is used to define a continuous
   color gradient using \code{colorRampPalette} to fill in
   regions. Note that the length of this gradient is set by
-    \code{\link{custom.theme}} to exactly 100 colors.}
+    \code{\link[latticeExtra]{custom.theme}} to exactly 100 colors.}
   \item{symbol}{A palette to display symbols.}
   \item{panel.background}{Parameters of the panel background.}
-  \item{alpha, ...}{Additional arguments for \code{\link{custom.theme.2}},
-    \code{\link{yscale.components.default}} and
-    \code{\link{xscale.components.default}}
+  \item{alpha, ...}{Additional arguments for \code{\link[latticeExtra]{custom.theme.2}},
+    \code{\link[lattice]{yscale.components.default}} and
+    \code{\link[lattice]{xscale.components.default}}
   }
   \item{strip.background, strip.shingle, strip.border}{List whose
-  components define the configuration of the strip areas. Read the help page of \code{\link{trellis.par.get}} for details.}
+  components define the configuration of the strip areas. Read the help page of \code{\link[lattice]{trellis.par.get}} for details.}
   \item{add.lines}{List whose components define the lines superposed on
-  the graphic. Read the help page of \code{\link{trellis.par.get}} for
+  the graphic. Read the help page of \code{\link[lattice]{trellis.par.get}} for
   details.}
 \item{box.rectangle}{List whose components define the box of the
   boxplot.}

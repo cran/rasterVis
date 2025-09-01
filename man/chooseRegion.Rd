@@ -22,7 +22,7 @@ chooseRegion(sp = TRUE, proj = as.character(NA))
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sp}{logical, if TRUE the result is a \code{SpatialPoints}
-object, otherwise it is a logical vector as returned by \code{\link{in.out}}}
+object, otherwise it is a logical vector as returned by \code{\link[mgcv]{in.out}}}
   \item{proj}{A character string for the \code{proj4string} of
     \code{SpatialPoints}.}
   \item{object}{A Raster object.}
@@ -78,7 +78,7 @@ summary(reg)
 \dontrun{
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 
-dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+dataURL <- "https://codeberg.org/oscarperpinan/bookvis/raw/branch/master/data/Spatial/"
 
 old <- setwd(tempdir())
 download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
